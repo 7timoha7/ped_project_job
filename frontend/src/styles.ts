@@ -6,13 +6,14 @@ export const mainBlocksBorderStyles = {
 };
 
 export const ToolBarStyles = {
-  background: '#03C988',
+  background: '#009d7f',
   top: 0,
   py: 2,
 };
 
 export const FooterStyle = {
-  background: '#03C988',
+  background: '#009d7f',
+  marginBottom: -4,
 };
 
 export const HeaderStyles = {

@@ -20,7 +20,7 @@ const ConfirmPage = () => {
       dispatch(verify(token));
     }
     setTimeout(navigateToCabinet, 5000);
-  }, [dispatch, token, setTimeout, navigateToCabinet]);
+  }, [dispatch, token, navigateToCabinet]);
   return (
     <Container>
       <Typography sx={{ display: 'inline-block' }} variant="h4">

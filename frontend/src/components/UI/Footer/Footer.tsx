@@ -30,9 +30,6 @@ const Footer = () => {
                 </Typography>
               </Grid>
               <Grid container item xs={12} md={3}>
-                <Link href="http://www.eventm.kg/" style={{ margin: 'auto' }}>
-                  <img style={{ maxWidth: '250px' }} src="/logo.png" alt="logo" />
-                </Link>
               </Grid>
               <Grid container item direction="column" xs={12} md={5}>
                 <Typography variant="body1" component="div" style={{ margin: 'auto' }}>

@@ -1,19 +1,16 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {useTranslation} from 'react-i18next';
 import {Box, Card, CardContent, Grid, List} from '@mui/material';
-import MapsHomeWorkIcon from '@mui/icons-material/MapsHomeWork';
 import ListItemButton from '@mui/material/ListItemButton';
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import {useAppDispatch} from '../../app/hooks';
 import HomeIcon from '@mui/icons-material/Home';
 import MyInformation from './components/MyInformation';
 import {CabinetState} from '../../types';
+import MySummary from "./components/MySummary";
 
 const initialState: CabinetState = {
-  orders: false,
-  favorites: false,
+  mySummary: false,
   myInfo: true,
 };
 
@@ -22,25 +19,17 @@ interface Props {
 }
 
 const UserCabinet: React.FC<Props> = ({exist = initialState}) => {
-  const dispatch = useAppDispatch();
   const {t} = useTranslation();
 
   const [state, setState] = React.useState<CabinetState>(exist);
 
-  useEffect(() => {
 
-  }, [dispatch]);
-
-  const handleClickOrders = () => {
-    setState((prev) => ({...prev, orders: true, favorites: false, myInfo: false}));
-  };
-
-  const handleClickFavorites = () => {
-    setState((prev) => ({...prev, orders: false, favorites: true, myInfo: false}));
+  const handleClickSummary = () => {
+    setState((prev) => ({...prev, mySummary: true, myInfo: false}));
   };
 
   const handleClickMyInfo = () => {
-    setState((prev) => ({...prev, orders: false, favorites: false, myInfo: true}));
+    setState((prev) => ({...prev, mySummary: false, myInfo: true}));
   };
 
   return (
@@ -65,22 +54,19 @@ const UserCabinet: React.FC<Props> = ({exist = initialState}) => {
                   </ListItemIcon>
                   <ListItemText primary={t('myInfo')}/>
                 </ListItemButton>
-                <ListItemButton onClick={handleClickOrders}>
+
+                <ListItemButton onClick={handleClickSummary}>
                   <ListItemIcon>
-                    <MapsHomeWorkIcon/>
+                    <HomeIcon/>
                   </ListItemIcon>
-                  <ListItemText primary={t('myOrders')}/>
+                  <ListItemText primary={t('mySummary')}/>
                 </ListItemButton>
-                <ListItemButton onClick={handleClickFavorites}>
-                  <ListItemIcon>
-                    <FavoriteIcon/>
-                  </ListItemIcon>
-                  <ListItemText primary={t('myFavorites')}/>
-                </ListItemButton>
+
               </List>
             </Grid>
             <Grid item xs>
               {state.myInfo && <MyInformation/>}
+              {state.mySummary && <MySummary/>}
             </Grid>
           </Grid>
         </CardContent>

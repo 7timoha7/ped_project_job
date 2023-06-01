@@ -18,9 +18,6 @@ const MyInformation = () => {
               {user.firstName} {user.lastName}
             </Typography>
           </Grid>
-          <Typography textAlign="right" variant="subtitle1" sx={{ marginX: '20px', fontWeight: 'bold' }}>
-            Cash Back : {user.cashback}
-          </Typography>
           <Typography variant="subtitle1" sx={{ margin: '20px', fontWeight: 'bold' }}>
             {t('phoneNumber')} : {user.phoneNumber}
           </Typography>
