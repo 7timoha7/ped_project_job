@@ -1,5 +1,6 @@
 import React from 'react';
-import { Typography, Card, CardContent, Box } from '@mui/material';
+import {Card, CardContent, Typography} from '@mui/material';
+
 const resumeData = {
   nameOrganisation: 'Название организации',
   requirements: 'Требования к кандидату',
@@ -11,7 +12,7 @@ const resumeData = {
 const VacanciesCard = () => {
   return (
     <>
-      <Card variant="outlined" sx={{ maxWidth: '100%', margin: '20px auto' }}>
+      <Card variant="outlined" sx={{maxWidth: '100%', margin: '20px auto'}}>
         <CardContent>
           <Typography variant="h6" gutterBottom>
             {resumeData.vacancyName}

@@ -42,7 +42,6 @@ const UserSchema = new Schema<IUser, UserModel, IUserMethods>({
   role: {
     type: String,
     required: true,
-    default: 'vacancies',
     enum: ['summary', 'vacancies'],
   },
   phoneNumber: {

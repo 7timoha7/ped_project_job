@@ -1,15 +1,26 @@
-import React, { useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { selectRegisterError, selectRegisterLoading } from './usersSlice';
-import { register } from './usersThunks';
-import { Avatar, Box, Container, Grid, Link, TextField, Typography } from '@mui/material';
-import { LoadingButton } from '@mui/lab';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import React, {useState} from 'react';
+import {useAppDispatch, useAppSelector} from '../../app/hooks';
+import {selectRegisterError, selectRegisterLoading} from './usersSlice';
+import {register} from './usersThunks';
+import {
+  Avatar,
+  Box,
+  Container,
+  FormControl,
+  Grid,
+  InputLabel,
+  Link,
+  MenuItem,
+  Select,
+  TextField,
+  Typography
+} from '@mui/material';
+import {LoadingButton} from '@mui/lab';
+import {Link as RouterLink, useNavigate} from 'react-router-dom';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import type { RegisterMutation } from '../../types';
-import { useTranslation } from 'react-i18next';
-import PhoneInput from 'react-phone-number-input';
-import { isValidPhoneNumber } from 'react-phone-number-input';
+import type {RegisterMutation} from '../../types';
+import {useTranslation} from 'react-i18next';
+import PhoneInput, {isValidPhoneNumber} from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
 
 const Register = () => {
@@ -17,7 +28,7 @@ const Register = () => {
   const error = useAppSelector(selectRegisterError);
   const loading = useAppSelector(selectRegisterLoading);
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  const {t} = useTranslation();
 
   const [state, setState] = useState<RegisterMutation>({
     email: '',
@@ -25,15 +36,18 @@ const Register = () => {
     firstName: '',
     lastName: '',
     phoneNumber: '',
+    role: '',
   });
 
+  console.log(state.role);
+
   const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setState((prevState) => ({ ...prevState, [name]: value }));
+    const {name, value} = event.target;
+    setState((prevState) => ({...prevState, [name]: value}));
   };
 
   const phoneChangeHandler = (newPhone: string) => {
-    setState((prevState) => ({ ...prevState, phoneNumber: newPhone }));
+    setState((prevState) => ({...prevState, phoneNumber: newPhone}));
   };
 
   const submitFormHandler = async (event: React.FormEvent) => {
@@ -44,6 +58,11 @@ const Register = () => {
     } catch (e) {
       console.log(e);
     }
+  };
+
+  const selectChangeHandler = (role: string) => {
+    // const {value} = event.target;
+    setState((prevState) => ({...prevState, role: role as string}));
   };
 
   const getFieldError = (fieldName: string) => {
@@ -64,13 +83,13 @@ const Register = () => {
           alignItems: 'center',
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-          <LockOutlinedIcon />
+        <Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
+          <LockOutlinedIcon/>
         </Avatar>
         <Typography component="h1" variant="h5">
           {t('signUp')}
         </Typography>
-        <Box component="form" onSubmit={submitFormHandler} sx={{ mt: 3 }}>
+        <Box component="form" onSubmit={submitFormHandler} sx={{mt: 3}}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
@@ -125,6 +144,32 @@ const Register = () => {
               />
             </Grid>
             <Grid item xs={12}>
+              <FormControl fullWidth>
+                <InputLabel>{t('selectRole')}</InputLabel>
+                <Select
+                  value={state.role}
+                  onChange={() => selectChangeHandler}
+                  label={t('selectRole')}
+                  required
+                >
+                  <MenuItem value="summary">{t('summary')}</MenuItem>
+                  <MenuItem value="vacancies">{t('vacancies')}</MenuItem>
+                </Select>
+              </FormControl>
+              <FormControl fullWidth sx={{mt: 2}}>
+                <InputLabel>{t('selectRole')}</InputLabel>
+                <Select
+                  value={state.role}
+                  onChange={(e) => selectChangeHandler(e.target.value)}
+                  label={t('selectRole')}
+                  required
+                >
+                  <MenuItem value="summary">{t('summary')}</MenuItem>
+                  <MenuItem value="vacancies">{t('vacancies')}</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid item xs={12}>
               <label> {t('phoneNumber')}</label>
               <PhoneInput
                 onChange={phoneChangeHandler}
@@ -137,7 +182,7 @@ const Register = () => {
               />
             </Grid>
           </Grid>
-          <LoadingButton type="submit" loading={loading} fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+          <LoadingButton type="submit" loading={loading} fullWidth variant="contained" sx={{mt: 3, mb: 2}}>
             {t('signUp')}
           </LoadingButton>
           <Grid container justifyContent="flex-end">

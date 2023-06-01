@@ -1,14 +1,27 @@
-import React, { useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { selectLoginError, selectLoginLoading } from './usersSlice';
-import { googleLogin, login } from './usersThunks';
-import { Alert, Avatar, Box, Container, Grid, Link, TextField, Typography } from '@mui/material';
-import { LoadingButton } from '@mui/lab';
+import React, {useState} from 'react';
+import {useAppDispatch, useAppSelector} from '../../app/hooks';
+import {selectLoginError, selectLoginLoading} from './usersSlice';
+import {googleLogin, login} from './usersThunks';
+import {
+  Alert,
+  Avatar,
+  Box,
+  Container,
+  FormControl,
+  Grid,
+  InputLabel,
+  Link,
+  MenuItem,
+  Select,
+  TextField,
+  Typography
+} from '@mui/material';
+import {LoadingButton} from '@mui/lab';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import type { LoginMutation } from '../../types';
-import { useTranslation } from 'react-i18next';
-import { GoogleLogin } from '@react-oauth/google';
+import {Link as RouterLink, useNavigate} from 'react-router-dom';
+import type {LoginMutation} from '../../types';
+import {useTranslation} from 'react-i18next';
+import {GoogleLogin} from '@react-oauth/google';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
@@ -23,7 +36,7 @@ const Login = () => {
   const error = useAppSelector(selectLoginError);
   const loading = useAppSelector(selectLoginLoading);
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  const {t} = useTranslation();
 
   const [state, setState] = useState<LoginMutation>({
     email: '',
@@ -32,10 +45,11 @@ const Login = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState('');
   const [credentials, setCredentials] = useState('');
+  const [role, setRole] = useState<"" | string>("");
 
   const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setState((prevState) => ({ ...prevState, [name]: value }));
+    const {name, value} = event.target;
+    setState((prevState) => ({...prevState, [name]: value}));
   };
 
   const submitFormHandler = async (event: React.FormEvent) => {
@@ -46,6 +60,7 @@ const Login = () => {
 
   const googleLoginHandler = async (credentials: string) => {
     await setPhoneNumber('');
+    await setRole('');
     await setIsDialogOpen(true);
     await setCredentials(credentials);
   };
@@ -54,11 +69,12 @@ const Login = () => {
     setIsDialogOpen(false);
   };
 
-  const submitDialogHandler = async (phone: string, cred: string) => {
-    await dispatch(googleLogin({ phone, cred })).unwrap();
+  const submitDialogHandler = async (phone: string, role: string, cred: string) => {
+    await dispatch(googleLogin({phone, role, cred})).unwrap();
     setIsDialogOpen(false);
     await navigate('/');
   };
+
   return (
     <Container component="main" maxWidth="xs">
       <Box
@@ -69,13 +85,13 @@ const Login = () => {
           alignItems: 'center',
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-          <LockOpenIcon />
+        <Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
+          <LockOpenIcon/>
         </Avatar>
         <Typography component="h1" variant="h5">
           {t('signIn')}
         </Typography>
-        <Box sx={{ pt: 2 }}>
+        <Box sx={{pt: 2}}>
           <GoogleLogin
             onSuccess={(credentialResponse) => {
               if (credentialResponse.credential) {
@@ -88,11 +104,11 @@ const Login = () => {
           />
         </Box>
         {error && (
-          <Alert severity="error" sx={{ mt: 3, width: '100%' }}>
+          <Alert severity="error" sx={{mt: 3, width: '100%'}}>
             {error.error}
           </Alert>
         )}
-        <Box component="form" onSubmit={submitFormHandler} sx={{ mt: 3 }}>
+        <Box component="form" onSubmit={submitFormHandler} sx={{mt: 3}}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
@@ -117,10 +133,10 @@ const Login = () => {
               />
             </Grid>
             <Grid item xs={12}>
-              <RestorePassword />
+              <RestorePassword/>
             </Grid>
           </Grid>
-          <LoadingButton type="submit" loading={loading} fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+          <LoadingButton type="submit" loading={loading} fullWidth variant="contained" sx={{mt: 3, mb: 2}}>
             {t('signIn')}
           </LoadingButton>
           <Grid container justifyContent="flex-end">
@@ -134,7 +150,7 @@ const Login = () => {
 
         <Dialog open={isDialogOpen} onClose={closeDialogHandler}>
           <DialogTitle>{t('enterPhoneNumber')}</DialogTitle>
-          <DialogContent sx={{ p: 8 }}>
+          <DialogContent sx={{p: 8}}>
             <ReactPhoneInput
               inputProps={{
                 name: 'phoneNumber',
@@ -145,12 +161,24 @@ const Login = () => {
               value={phoneNumber}
               onChange={setPhoneNumber}
             />
+            <FormControl fullWidth sx={{ mt: 2 }}>
+              <InputLabel>{t('selectRole')}</InputLabel>
+              <Select
+                value={role}
+                onChange={(event) => setRole(event.target.value as string)}
+                label={t('selectRole')}
+                required
+              >
+                <MenuItem value="summary">{t('summary')}</MenuItem>
+                <MenuItem value="vacancies">{t('vacancies')}</MenuItem>
+              </Select>
+            </FormControl>
           </DialogContent>
           <DialogActions>
             <Button onClick={closeDialogHandler}>{t('cancel')}</Button>
             <Button
-              disabled={phoneNumber.length < 8}
-              onClick={() => submitDialogHandler(phoneNumber, credentials)}
+              disabled={phoneNumber.length < 8 || !role.length}
+              onClick={() => submitDialogHandler(phoneNumber, role, credentials)}
               color="primary"
               variant="contained"
             >

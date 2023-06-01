@@ -102,10 +102,11 @@ export const reAuthorization = createAsyncThunk<User>('user/reAuthorization', as
   }
 });
 
-export const googleLogin = createAsyncThunk<User, { phone: string; cred: string }, { rejectValue: GlobalError }>(
+export const googleLogin = createAsyncThunk<User, { phone: string, role: string, cred: string }, { rejectValue: GlobalError }>(
   'users/googleLogin',
   async (credential, { rejectWithValue }) => {
     try {
+
       const response = await axiosApi.post<RegisterResponse>('/users/google', { credential });
       return response.data.user;
     } catch (e) {

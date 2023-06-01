@@ -106,11 +106,12 @@ usersRouter.post('/google', async (req, res, next) => {
     const firstName = payload['given_name'];
     const lastName = payload['family_name'];
     const phoneNumber = req.body.credential.phone;
+    const roleUser = req.body.credential.role as string
     if (!email) {
       return res.status(400).send({error: 'Not enough user data to continue'});
     }
 
-    let user = await User.findOneAndUpdate({googleId: id}, {phoneNumber: phoneNumber}, {new: true});
+    let user = await User.findOneAndUpdate({googleId: id}, {phoneNumber: phoneNumber, role: roleUser}, {new: true});
 
     if (!user) {
       user = new User({
@@ -119,7 +120,9 @@ usersRouter.post('/google', async (req, res, next) => {
         firstName: firstName,
         password: crypto.randomUUID(),
         phoneNumber: phoneNumber,
+        role: roleUser,
         googleId: id,
+        isVerified: true,
       });
     }
     user.generateToken();

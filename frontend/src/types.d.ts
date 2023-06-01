@@ -1,39 +1,3 @@
-export interface ImgType {
-  image: File | null;
-}
-
-export interface ApartmentMutation extends ApartmentData {
-  hotelId: string;
-  roomTypeId: string;
-  images?: File[];
-}
-
-export interface ApartmentPopulated extends IApartment {
-  hotelId: Hotel;
-}
-
-export interface IApartment extends ApartmentData {
-  roomTypeId: {
-    name: {
-      ru: string;
-      en: string;
-    };
-    _id: string;
-  };
-  hotelId: {
-    name: string;
-    userId: string;
-    _id: string;
-  };
-  _id: string;
-  images: string[];
-}
-
-export interface UpdateApartment {
-  id: string;
-  apartment: ApartmentMutation;
-}
-
 export interface User {
   _id: string;
   email: string;
@@ -57,6 +21,7 @@ export interface RegisterMutation extends LoginMutation {
   firstName: string;
   lastName: string;
   phoneNumber: string;
+  role: string;
 }
 
 export interface RegisterResponse {
