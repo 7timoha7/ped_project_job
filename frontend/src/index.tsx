@@ -1,17 +1,17 @@
-import React, { Suspense } from 'react';
+import React, {Suspense} from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-import { PersistGate } from 'redux-persist/integration/react';
-import { persistor, store } from './app/store';
-import { Provider } from 'react-redux';
-import { CircularProgress, ThemeProvider } from '@mui/material';
+import {PersistGate} from 'redux-persist/integration/react';
+import {persistor, store} from './app/store';
+import {Provider} from 'react-redux';
+import {CircularProgress, ThemeProvider} from '@mui/material';
 import './18n';
-import { BrowserRouter } from 'react-router-dom';
+import {BrowserRouter} from 'react-router-dom';
 import theme from './theme';
-import { addInterceptors } from './axiosApi';
-import { SnackbarProvider } from 'notistack';
-import { GoogleOAuthProvider } from '@react-oauth/google';
-import { GOOGLE_CLIENT_ID } from './constants';
+import {addInterceptors} from './axiosApi';
+import {SnackbarProvider} from 'notistack';
+import {GoogleOAuthProvider} from '@react-oauth/google';
+import {GOOGLE_CLIENT_ID} from './constants';
 
 addInterceptors(store);
 
@@ -20,13 +20,12 @@ root.render(
   <BrowserRouter>
     <Provider store={store}>
       <PersistGate persistor={persistor}>
-        <Suspense fallback={<CircularProgress />}>
+        <Suspense fallback={<CircularProgress/>}>
           <ThemeProvider theme={theme}>
             <SnackbarProvider>
               <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
-                <App />
+                <App/>
               </GoogleOAuthProvider>
-              ,
             </SnackbarProvider>
           </ThemeProvider>
         </Suspense>

@@ -16,10 +16,13 @@ import ConfirmPage from './components/UI/VerifyPage/ConfirmPage';
 import SummaryForm from "./features/summary/SummaryForm";
 import VacanciesForm from "./features/vacancies/VacanciesForm";
 import UserCabinet from "./features/cabinets/UserCabinet";
+import {selectVacanciesSuccess} from "./features/vacancies/VacanciesSlice";
+import Vacancies from "./features/vacancies/Vacancies";
 
 function App() {
   const user = useAppSelector(selectUser);
   const userSuccess = useAppSelector(selectUserSuccess);
+  const vacanciesSuccess = useAppSelector(selectVacanciesSuccess);
   const dispatch = useAppDispatch();
   const {enqueueSnackbar} = useSnackbar();
   const {i18n} = useTranslation();
@@ -41,12 +44,30 @@ function App() {
     dispatch(setUserSuccessNull());
   }, [userSuccess, i18n.language, dispatch, enqueueSnackbar]);
 
+  useEffect(() => {
+    if (vacanciesSuccess) {
+      if (i18n.language === 'en') {
+        enqueueSnackbar(vacanciesSuccess.message.en, {
+          variant: 'success',
+          preventDuplicate: true,
+        });
+      } else {
+        enqueueSnackbar(vacanciesSuccess.message.ru, {
+          variant: 'success',
+          preventDuplicate: true,
+        });
+      }
+    }
+    dispatch(setUserSuccessNull());
+  }, [vacanciesSuccess, i18n.language, dispatch, enqueueSnackbar]);
+
   return (
     <Routes>
       <Route path="/" element={<Home/>}>
         <Route path="/" element={<MainPage/>}/>
         <Route path="/login" element={<Login/>}/>
         <Route path="/register" element={<Register/>}/>
+        <Route path="/Vacancies/:id" element={<Vacancies/>}/>
 
         <Route
           path="/my-cabinet"

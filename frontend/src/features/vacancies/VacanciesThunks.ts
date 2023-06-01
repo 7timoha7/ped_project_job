@@ -4,30 +4,6 @@ import axiosApi from "../../axiosApi";
 import {isAxiosError} from "axios";
 import {RootState} from "../../app/store";
 
-
-// export const createVacancies = createAsyncThunk<void, VacanciesToServer, { rejectValue: ValidationError }>(
-//   'vacancies/createVacancies',
-//   async (vacancies, {rejectWithValue}) => {
-//     try {
-//       const formData = new FormData();
-//       const keys = Object.keys(vacancies) as (keyof VacanciesToServer)[];
-//       keys.forEach((key) => {
-//         const value = vacancies[key];
-//         if (value !== null) {
-//           formData.append(key, value);
-//         }
-//       });
-//       console.log(vacancies);
-//       const response = await axiosApi.post('/vacancies', vacancies);
-//       return response.data;
-//     } catch (e) {
-//       if (isAxiosError(e) && e.response && e.response.status === 400) {
-//         return rejectWithValue(e.response.data as ValidationError);
-//       }
-//       throw e;
-//     }
-//   });
-
 export const createVacancies = createAsyncThunk<GlobalSuccess, VacanciesToServer, { state: RootState; rejectValue: ValidationError }>(
   'vacancies/createVacancies',
   async (vacancies, { getState, rejectWithValue }) => {
@@ -59,6 +35,24 @@ export const getMyVacancies = createAsyncThunk<VacanciesOnServer[]>('vacancies/g
   try {
     const responseOrders = await axiosApi.get<VacanciesOnServer[]>('/vacancies/myVacancies');
     return responseOrders.data;
+  } catch {
+    throw new Error();
+  }
+});
+
+export const getVacanciesOne = createAsyncThunk<VacanciesOnServer, string>('vacancies/getVacanciesOne', async (id) => {
+  try {
+    const responseOrders = await axiosApi.get<VacanciesOnServer>('/vacancies/' + id);
+    return responseOrders.data;
+  } catch {
+    throw new Error();
+  }
+});
+
+export const removeVacancies = createAsyncThunk<GlobalSuccess, string>('vacancies/removeVacancies', async (id) => {
+  try {
+    const response = await axiosApi.delete<GlobalSuccess>('/vacancies/vacanciesDelete/' + id);
+    return response.data;
   } catch {
     throw new Error();
   }

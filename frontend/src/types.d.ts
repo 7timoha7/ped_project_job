@@ -68,6 +68,11 @@ export interface SummaryToServer {
   desc: string;
 }
 
+export interface SummaryOnServer extends SummaryToServer {
+  _id: string;
+  user: string;
+}
+
 export interface VacanciesToServer {
   nameOrganisation: string;
   requirements: string;

@@ -1,34 +1,43 @@
-import React from 'react';
-import {Typography, Paper} from '@mui/material';
+import React, {useEffect} from 'react';
+import {Paper, Typography} from '@mui/material';
+import {useAppDispatch, useAppSelector} from "../../app/hooks";
+import {selectVacanciesOne} from "./VacanciesSlice";
+import {useParams} from "react-router-dom";
+import {getVacanciesOne} from "./VacanciesThunks";
 
-const resumeData = {
-  nameOrganisation: 'Название организации',
-  requirements: 'Требования к кандидату',
-  salaries: 'Зарплата',
-  vacancyDesc: 'Описание вакансии',
-  vacancyName: 'Название вакансии',
-};
+
 const Vacancies = () => {
+  const vacancies = useAppSelector(selectVacanciesOne);
+  const dispatch = useAppDispatch();
+  const {id} = useParams();
+
+  useEffect(() => {
+    if (id) {
+      dispatch(getVacanciesOne(id));
+    }
+
+  }, [dispatch, id]);
+
   return (
     <>
       <Paper elevation={3} sx={{padding: '20px', margin: '20px'}}>
         <Typography variant="h4" gutterBottom>
-          Резюме
+          Job vacancy
         </Typography>
         <Typography variant="h6" gutterBottom>
-          Название вакансии: {resumeData.vacancyName}
+          Название вакансии: {vacancies?.vacancyName}
         </Typography>
         <Typography variant="subtitle1" gutterBottom>
-          Название организации: {resumeData.nameOrganisation}
+          Название организации: {vacancies?.nameOrganisation}
         </Typography>
         <Typography variant="body1" gutterBottom>
-          Описание вакансии: {resumeData.vacancyDesc}
+          Описание вакансии: {vacancies?.vacancyDesc}
         </Typography>
         <Typography variant="body1" gutterBottom>
-          Требования к кандидату: {resumeData.requirements}
+          Требования к кандидату: {vacancies?.requirements}
         </Typography>
         <Typography variant="body1" gutterBottom>
-          Зарплата: {resumeData.salaries}
+          Зарплата: {vacancies?.salaries}
         </Typography>
       </Paper>
     </>

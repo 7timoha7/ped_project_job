@@ -2,12 +2,15 @@ import {createSlice} from '@reduxjs/toolkit';
 import type {GlobalSuccess, ValidationError} from '../../types';
 import {VacanciesOnServer} from "../../types";
 import {RootState} from "../../app/store";
-import {createVacancies, getMyVacancies, getVacancies} from "./VacanciesThunks";
+import {createVacancies, getMyVacancies, getVacancies, getVacanciesOne, removeVacancies} from "./VacanciesThunks";
+import {usersSlice} from "../users/usersSlice";
 
 interface VacanciesState {
   vacancies: VacanciesOnServer[];
   myVacancies: VacanciesOnServer[];
+  vacanciesOne: VacanciesOnServer | null;
   loadingVacancies: boolean;
+  loadingRemove: false | string;
   vacanciesError: ValidationError | null;
   vacanciesSuccess: GlobalSuccess | null;
 }
@@ -15,7 +18,9 @@ interface VacanciesState {
 const initialState: VacanciesState = {
   vacancies: [],
   myVacancies: [],
+  vacanciesOne: null,
   loadingVacancies: false,
+  loadingRemove: false,
   vacanciesError: null,
   vacanciesSuccess: null,
 };
@@ -23,20 +28,12 @@ const initialState: VacanciesState = {
 export const vacanciesSlice = createSlice({
   name: 'vacancies',
   initialState,
-  reducers: {},
+  reducers: {
+    setVacanciesSuccessNull: (state) => {
+      state.vacanciesSuccess = null;
+    },
+  },
   extraReducers: (builder) => {
-    // builder.addCase(createVacancies.pending, (state) => {
-    //   state.loadingVacancies = true;
-    //   state.vacanciesError = null;
-    // });
-    // builder.addCase(createVacancies.fulfilled, (state) => {
-    //   state.loadingVacancies = false;
-    // });
-    // builder.addCase(createVacancies.rejected, (state, {payload: error}) => {
-    //   state.loadingVacancies = false;
-    //   state.vacanciesError = error || null;
-    // });
-
     builder.addCase(createVacancies.pending, (state) => {
       state.vacanciesError = null;
       state.loadingVacancies = true;
@@ -74,13 +71,40 @@ export const vacanciesSlice = createSlice({
       state.loadingVacancies = false;
     });
 
+    builder.addCase(removeVacancies.pending, (state, { meta }) => {
+      state.loadingRemove = meta.arg;
+    });
+    builder.addCase(removeVacancies.fulfilled, (state, { payload: success }) => {
+      state.loadingRemove = false;
+      state.vacanciesSuccess = success;
+    });
+    builder.addCase(removeVacancies.rejected, (state) => {
+      state.loadingRemove = false;
+    });
+
+    builder.addCase(getVacanciesOne.pending, (state) => {
+      state.loadingVacancies = true;
+    });
+    builder.addCase(getVacanciesOne.fulfilled, (state, action) => {
+      state.loadingVacancies = false;
+      state.vacanciesOne = action.payload;
+    });
+    builder.addCase(getVacanciesOne.rejected, (state) => {
+      state.loadingVacancies = false;
+    });
+
 
   },
 });
 export const vacanciesReducer = vacanciesSlice.reducer;
 
+export const {setVacanciesSuccessNull} = vacanciesSlice.actions;
+
 export const selectVacancies = (state: RootState) => state.vacancies.vacancies;
 export const selectMyVacancies = (state: RootState) => state.vacancies.myVacancies;
+export const selectVacanciesOne = (state: RootState) => state.vacancies.vacanciesOne;
 export const selectLoadingCreateVacancies = (state: RootState) => state.vacancies.loadingVacancies;
+export const selectLoadingRemoveVacancies = (state: RootState) => state.vacancies.loadingRemove;
+export const selectVacanciesSuccess = (state: RootState) => state.vacancies.vacanciesSuccess;
 
 

@@ -111,7 +111,12 @@ vacanciesRouter.delete('/vacanciesDelete/:id', auth, async (req, res, next) => {
     if (vacancies) {
       if (vacancies.user.toString() === user._id.toString()) {
         await Vacancies.deleteOne({_id: req.params.id});
-        return res.send({message: "OK"});
+        return res.send({
+          message: {
+            en: 'Vacancies delete successfully',
+            ru: 'Вокансия успешно Удалена',
+          }
+        });
       }
     }
   } catch (e) {
