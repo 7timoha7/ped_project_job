@@ -1,9 +1,10 @@
 import React, {useEffect} from 'react';
-import {Button} from "@mui/material";
+import {Button, Grid} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../../app/hooks";
 import {getMyVacancies} from "../../vacancies/VacanciesThunks";
 import {selectMyVacancies} from "../../vacancies/VacanciesSlice";
+import VacanciesCard from "../../vacancies/VacanciesCard";
 
 const MyVacancies = () => {
   const navigate = useNavigate();
@@ -16,6 +17,9 @@ const MyVacancies = () => {
   return (
     <div>
       <Button onClick={() => navigate('/vacanciesForm')}>Create vacancies</Button>
+        {vacancies.map(item => {
+          return <VacanciesCard item={item} key={item._id}/>
+        })}
     </div>
   );
 };

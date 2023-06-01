@@ -76,5 +76,10 @@ export interface VacanciesToServer {
   vacancyName: string;
 }
 
+export interface VacanciesOnServer extends VacanciesToServer {
+  _id: string;
+  user: string;
+}
+
 
 

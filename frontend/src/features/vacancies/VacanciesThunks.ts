@@ -1,5 +1,5 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import {GlobalSuccess, VacanciesToServer, ValidationError} from "../../types";
+import {GlobalSuccess, VacanciesOnServer, VacanciesToServer, ValidationError} from "../../types";
 import axiosApi from "../../axiosApi";
 import {isAxiosError} from "axios";
 import {RootState} from "../../app/store";
@@ -46,18 +46,18 @@ export const createVacancies = createAsyncThunk<GlobalSuccess, VacanciesToServer
   },
 );
 
-export const getVacancies = createAsyncThunk<VacanciesToServer[]>('vacancies/getVacancies', async () => {
+export const getVacancies = createAsyncThunk<VacanciesOnServer[]>('vacancies/getVacancies', async () => {
   try {
-    const responseOrders = await axiosApi.get<VacanciesToServer[]>('/vacancies');
+    const responseOrders = await axiosApi.get<VacanciesOnServer[]>('/vacancies');
     return responseOrders.data;
   } catch {
     throw new Error();
   }
 });
 
-export const getMyVacancies = createAsyncThunk<VacanciesToServer[]>('vacancies/getMyVacancies', async () => {
+export const getMyVacancies = createAsyncThunk<VacanciesOnServer[]>('vacancies/getMyVacancies', async () => {
   try {
-    const responseOrders = await axiosApi.get<VacanciesToServer[]>('/vacancies/myVacancies');
+    const responseOrders = await axiosApi.get<VacanciesOnServer[]>('/vacancies/myVacancies');
     return responseOrders.data;
   } catch {
     throw new Error();

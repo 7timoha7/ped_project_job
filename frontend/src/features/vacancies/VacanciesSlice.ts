@@ -1,11 +1,12 @@
 import {createSlice} from '@reduxjs/toolkit';
-import type {GlobalSuccess, VacanciesToServer, ValidationError} from '../../types';
+import type {GlobalSuccess, ValidationError} from '../../types';
+import {VacanciesOnServer} from "../../types";
 import {RootState} from "../../app/store";
 import {createVacancies, getMyVacancies, getVacancies} from "./VacanciesThunks";
 
 interface VacanciesState {
-  vacancies: VacanciesToServer[];
-  myVacancies: VacanciesToServer[];
+  vacancies: VacanciesOnServer[];
+  myVacancies: VacanciesOnServer[];
   loadingVacancies: boolean;
   vacanciesError: ValidationError | null;
   vacanciesSuccess: GlobalSuccess | null;
@@ -53,7 +54,7 @@ export const vacanciesSlice = createSlice({
       state.vacancies = [];
       state.loadingVacancies = true;
     });
-    builder.addCase(getVacancies.fulfilled, (state, { payload: vacancies }) => {
+    builder.addCase(getVacancies.fulfilled, (state, {payload: vacancies}) => {
       state.loadingVacancies = false;
       state.vacancies = vacancies;
     });
@@ -65,7 +66,7 @@ export const vacanciesSlice = createSlice({
       state.myVacancies = [];
       state.loadingVacancies = true;
     });
-    builder.addCase(getMyVacancies.fulfilled, (state, { payload: vacancies }) => {
+    builder.addCase(getMyVacancies.fulfilled, (state, {payload: vacancies}) => {
       state.loadingVacancies = false;
       state.myVacancies = vacancies;
     });

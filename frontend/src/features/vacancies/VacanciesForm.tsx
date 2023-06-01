@@ -37,7 +37,7 @@ const VacanciesForm = () => {
       vacancyName: '',
     });
 
-    await navigate('/myCabinet');
+    await navigate('/my-cabinet');
   };
 
   return (

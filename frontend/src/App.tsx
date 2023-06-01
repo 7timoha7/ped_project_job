@@ -16,8 +16,6 @@ import ConfirmPage from './components/UI/VerifyPage/ConfirmPage';
 import SummaryForm from "./features/summary/SummaryForm";
 import VacanciesForm from "./features/vacancies/VacanciesForm";
 import UserCabinet from "./features/cabinets/UserCabinet";
-import Vacancies from "./features/vacancies/Vacancies";
-import VacanciesCard from "./features/vacancies/VacanciesCard";
 
 function App() {
   const user = useAppSelector(selectUser);
@@ -49,10 +47,6 @@ function App() {
         <Route path="/" element={<MainPage/>}/>
         <Route path="/login" element={<Login/>}/>
         <Route path="/register" element={<Register/>}/>
-        <Route path="/1" element={<Vacancies/>}/>
-        <Route path="/2" element={<VacanciesCard/>}/>
-
-
 
         <Route
           path="/my-cabinet"

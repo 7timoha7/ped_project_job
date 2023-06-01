@@ -68,7 +68,7 @@ const SummaryForm = () => {
       desc: '',
     });
 
-    await navigate('/myCabinet');
+    await navigate('/my-cabinet');
   };
 
   return (
