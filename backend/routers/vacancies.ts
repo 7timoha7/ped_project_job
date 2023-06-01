@@ -81,6 +81,16 @@ vacanciesRouter.get('/', async (req, res, next) => {
   }
 });
 
+vacanciesRouter.get('/myVacancies', auth, permit('vacancies'), async (req, res, next) => {
+  try {
+    const user = (req as RequestWithUser).user;
+    const vacanciesRes = await Vacancies.find({user: user._id});
+    return res.send(vacanciesRes);
+  } catch (e) {
+    return next(e);
+  }
+});
+
 vacanciesRouter.get('/:id', async (req, res) => {
   try {
     const result = await Vacancies.findById(req.params.id);

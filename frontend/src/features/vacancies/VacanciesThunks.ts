@@ -45,3 +45,21 @@ export const createVacancies = createAsyncThunk<GlobalSuccess, VacanciesToServer
     }
   },
 );
+
+export const getVacancies = createAsyncThunk<VacanciesToServer[]>('vacancies/getVacancies', async () => {
+  try {
+    const responseOrders = await axiosApi.get<VacanciesToServer[]>('/vacancies');
+    return responseOrders.data;
+  } catch {
+    throw new Error();
+  }
+});
+
+export const getMyVacancies = createAsyncThunk<VacanciesToServer[]>('vacancies/getMyVacancies', async () => {
+  try {
+    const responseOrders = await axiosApi.get<VacanciesToServer[]>('/vacancies/myVacancies');
+    return responseOrders.data;
+  } catch {
+    throw new Error();
+  }
+});

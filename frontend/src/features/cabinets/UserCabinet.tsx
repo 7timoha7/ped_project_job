@@ -16,7 +16,7 @@ import AssignmentIcon from '@mui/icons-material/Assignment';
 const initialState: CabinetState = {
   mySummary: false,
   myInfo: true,
-  myVacancies: true,
+  myVacancies: false,
 };
 
 interface Props {

@@ -7,7 +7,6 @@ const MySummary = () => {
   return (
     <div>
       <Button onClick={() => navigate('/summaryForm')}>Create summary</Button>
-
     </div>
   );
 };
