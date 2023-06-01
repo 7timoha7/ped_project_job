@@ -3,30 +3,54 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "@mui/icons-material": "^5.11.16",
+    "@mui/lab": "^5.0.0-alpha.125",
+    "@mui/material": "^5.11.16",
+    "@mui/x-date-pickers": "^6.3.1",
+    "@react-oauth/google": "^0.11.0",
+    "@reduxjs/toolkit": "^1.9.3",
+    "@types/i18n": "^0.13.6",
     "@types/jest": "^27.5.2",
-    "@types/node": "^16.18.34",
-    "@types/react": "^18.2.7",
-    "@types/react-dom": "^18.2.4",
+    "@types/node": "^16.18.23",
+    "@types/react": "^18.0.34",
+    "@types/react-dom": "^18.0.11",
+    "axios": "^1.3.5",
+    "dayjs": "^1.11.7",
+    "i18next": "^22.4.14",
+    "notistack": "^3.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-i18next": "^12.2.0",
+    "react-image-file-resizer": "^0.4.8",
+    "react-multi-carousel": "^2.8.3",
+    "react-phone-input-2": "^2.15.1",
+    "react-phone-number-input": "^3.2.19",
+    "react-redux": "^8.0.5",
+    "react-router-dom": "^6.10.0",
     "react-scripts": "5.0.1",
-    "typescript": "^4.9.5",
-    "web-vitals": "^2.1.4"
+    "redux-persist": "^6.0.0",
+    "typescript": "^4.9.5"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint \"src/**/*.{ts,tsx}\"",
+    "format:check": "prettier --check .",
+    "format": "prettier --write .",
+    "typecheck": "tsc --noemit"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
       "react-app/jest"
     ]
+  },
+  "devDependencies": {
+    "i18next-browser-languagedetector": "^7.0.1"
   },
   "browserslist": {
     "production": [
