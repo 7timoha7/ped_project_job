@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import config from './config';
 import usersRouter from './routers/users';
 import summaryRouter from "./routers/summary";
+import vacanciesRouter from "./routers/vacancies";
 
 const app = express();
 const port = 8000;
@@ -13,6 +14,7 @@ app.use(express.static('public'));
 app.use(express.json());
 app.use('/users', usersRouter);
 app.use('/summary', summaryRouter);
+app.use('/vacancies', vacanciesRouter);
 
 const run = async () => {
   mongoose.set('strictQuery', false);

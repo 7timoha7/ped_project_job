@@ -104,15 +104,12 @@ export interface SummaryToServer {
 }
 
 export interface VacanciesToServer {
-  firstName: string;
-  lastName: string;
-  email: string;
-  phoneNumber: string;
-  education: string;
-  educationalInstitution: string;
-  startDate: string;
-  expirationDate: string;
-  desc: string;
+  nameOrganisation: string;
+  requirements: string;
+  salaries: string;
+  vacancyDesc: string;
+  vacancyName: string;
 }
+
 
 

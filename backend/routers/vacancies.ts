@@ -1,16 +1,16 @@
 import express from "express";
 import mongoose from "mongoose";
 import auth, {RequestWithUser} from "../middleware/auth";
-import Summary from "../models/Summary";
+import Vacancies from "../models/Vacancies";
 import permit from "../middleware/permit";
 
-const summaryRouter = express.Router();
+const vacanciesRouter = express.Router();
 
-// summaryRouter.post('/', auth, async (req, res, next) => {
+// vacanciesRouter.post('/', auth, async (req, res, next) => {
 //   try {
 //     const user = (req as RequestWithUser).user;
 //     const currentDate = new Date();
-//     const summary = await Summary.create({
+//     const vacancies = await Vacancies.create({
 //       user: user._id,
 //       datetime: currentDate.toString(),
 //       email: req.body.email,
@@ -24,7 +24,7 @@ const summaryRouter = express.Router();
 //       desc: req.body.desc,
 //     });
 //     console.log(req.body);
-//     return res.send(summary);
+//     return res.send(vacancies);
 //   } catch (e) {
 //     if (e instanceof mongoose.Error.ValidationError) {
 //       return res.status(400).send(e);
@@ -34,37 +34,33 @@ const summaryRouter = express.Router();
 //   }
 // });
 
-summaryRouter.post('/', auth, permit('summary'), async (req, res, next) => {
+vacanciesRouter.post('/', auth, permit('vacancies'), async (req, res, next) => {
   const user = (req as RequestWithUser).user;
   const currentDate = new Date();
   try {
     if (user.isVerified) {
-      const order = new Summary({
+      const order = new Vacancies({
         user: user._id,
         datetime: currentDate.toString(),
-        email: req.body.email,
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        phoneNumber: req.body.phoneNumber,
-        startDate: req.body.startDate,
-        expirationDate: req.body.expirationDate,
-        education: req.body.education,
-        educationalInstitution: req.body.educationalInstitution,
-        desc: req.body.desc,
+        nameOrganisation: req.body.nameOrganisation,
+        requirements: req.body.requirements,
+        salaries: req.body.salaries,
+        vacancyDesc: req.body.vacancyDesc,
+        vacancyName: req.body.vacancyName
       });
 
       await order.save();
       return res.send({
         message: {
-          en: 'Summary created successfully',
-          ru: 'Резюме успешно создан',
+          en: 'Vacancies created successfully',
+          ru: 'Вокансия успешно создан',
         },
       });
     } else {
       res.status(401).send({
         message: {
-          en: 'for Summary you must verify your account',
-          ru: 'для создания резюме вы должны подтвердить свой аккаунт',
+          en: 'for Vacancies you must verify your account',
+          ru: 'для создания Вокансия вы должны подтвердить свой аккаунт',
         },
       });
     }
@@ -76,18 +72,18 @@ summaryRouter.post('/', auth, permit('summary'), async (req, res, next) => {
   }
 });
 
-summaryRouter.get('/', async (req, res, next) => {
+vacanciesRouter.get('/', async (req, res, next) => {
   try {
-    const summaryRes = await Summary.find();
-    return res.send(summaryRes);
+    const vacanciesRes = await Vacancies.find();
+    return res.send(vacanciesRes);
   } catch (e) {
     return next(e);
   }
 });
 
-summaryRouter.get('/:id', async (req, res) => {
+vacanciesRouter.get('/:id', async (req, res) => {
   try {
-    const result = await Summary.findById(req.params.id);
+    const result = await Vacancies.findById(req.params.id);
     if (!result) {
       return res.sendStatus(404);
     }
@@ -97,14 +93,14 @@ summaryRouter.get('/:id', async (req, res) => {
   }
 });
 
-summaryRouter.delete('/summaryDelete/:id', auth, async (req, res, next) => {
+vacanciesRouter.delete('/vacanciesDelete/:id', auth, async (req, res, next) => {
   try {
     const user = (req as RequestWithUser).user;
-    const summary = await Summary.findById(req.params.id);
+    const vacancies = await Vacancies.findById(req.params.id);
 
-    if (summary) {
-      if (summary.user.toString() === user._id.toString()) {
-        await Summary.deleteOne({_id: req.params.id});
+    if (vacancies) {
+      if (vacancies.user.toString() === user._id.toString()) {
+        await Vacancies.deleteOne({_id: req.params.id});
         return res.send({message: "OK"});
       }
     }
@@ -113,6 +109,6 @@ summaryRouter.delete('/summaryDelete/:id', auth, async (req, res, next) => {
   }
 });
 
-export default summaryRouter;
+export default vacanciesRouter;
 
 

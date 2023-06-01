@@ -9,6 +9,9 @@ import MyInformation from './components/MyInformation';
 import {CabinetState} from '../../types';
 import MySummary from "./components/MySummary";
 import MyVacancies from "./components/MyVacancies";
+import {useAppSelector} from "../../app/hooks";
+import {selectUser} from "../users/usersSlice";
+import AssignmentIcon from '@mui/icons-material/Assignment';
 
 const initialState: CabinetState = {
   mySummary: false,
@@ -24,6 +27,8 @@ const UserCabinet: React.FC<Props> = ({exist = initialState}) => {
   const {t} = useTranslation();
 
   const [state, setState] = React.useState<CabinetState>(exist);
+
+  const user = useAppSelector(selectUser);
 
 
   const handleClickSummary = () => {
@@ -61,19 +66,21 @@ const UserCabinet: React.FC<Props> = ({exist = initialState}) => {
                   <ListItemText primary={t('myInfo')}/>
                 </ListItemButton>
 
-                <ListItemButton onClick={handleClickSummary}>
-                  <ListItemIcon>
-                    <HomeIcon/>
-                  </ListItemIcon>
-                  <ListItemText primary={t('mySummary')}/>
-                </ListItemButton>
+                {user?.role === 'summary' &&
+                  <ListItemButton onClick={handleClickSummary}>
+                    <ListItemIcon>
+                      <AssignmentIcon/>
+                    </ListItemIcon>
+                    <ListItemText primary={t('mySummary')}/>
+                  </ListItemButton>}
 
-                <ListItemButton onClick={handleClickVacancies}>
-                  <ListItemIcon>
-                    <HomeIcon/>
-                  </ListItemIcon>
-                  <ListItemText primary={t('myVacancies')}/>
-                </ListItemButton>
+                {user?.role === 'vacancies' &&
+                  <ListItemButton onClick={handleClickVacancies}>
+                    <ListItemIcon>
+                      <AssignmentIcon/>
+                    </ListItemIcon>
+                    <ListItemText primary={t('myVacancies')}/>
+                  </ListItemButton>}
 
               </List>
             </Grid>

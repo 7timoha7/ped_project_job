@@ -7,16 +7,15 @@ import MainPage from './containers/MainPage';
 import Login from './features/users/Login';
 import Register from './features/users/Register';
 import ProtectedRoute from './components/UI/ProtectedRoute/ProtectedRoute';
-import Cabinet from './features/cabinets/Cabinet';
 import NoFoundPage from './components/UI/NoFoundPage/NoFoundPage';
 import {useSnackbar} from 'notistack';
 import {useTranslation} from 'react-i18next';
 import VerifyProtectedRoute from './components/UI/ProtectedRoute/VerifyProtectedRoute';
 import VerifyPage from './components/UI/VerifyPage/VerifyPage';
 import ConfirmPage from './components/UI/VerifyPage/ConfirmPage';
-import MySummary from "./features/cabinets/components/MySummary";
 import SummaryForm from "./features/summary/SummaryForm";
 import VacanciesForm from "./features/vacancies/VacanciesForm";
+import UserCabinet from "./features/cabinets/UserCabinet";
 
 function App() {
   const user = useAppSelector(selectUser);
@@ -53,7 +52,7 @@ function App() {
           path="/my-cabinet"
           element={
             <VerifyProtectedRoute isVerify={user && user.isVerified}>
-              <Cabinet/>
+              <UserCabinet/>
             </VerifyProtectedRoute>
           }
         />

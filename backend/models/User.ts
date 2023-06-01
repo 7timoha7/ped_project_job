@@ -42,8 +42,8 @@ const UserSchema = new Schema<IUser, UserModel, IUserMethods>({
   role: {
     type: String,
     required: true,
-    default: 'user',
-    enum: ['user', 'admin', 'hotel', 'director'],
+    default: 'vacancies',
+    enum: ['summary', 'vacancies'],
   },
   phoneNumber: {
     type: String,
