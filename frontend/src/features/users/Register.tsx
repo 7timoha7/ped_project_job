@@ -39,8 +39,6 @@ const Register = () => {
     role: '',
   });
 
-  console.log(state.role);
-
   const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const {name, value} = event.target;
     setState((prevState) => ({...prevState, [name]: value}));
@@ -61,8 +59,7 @@ const Register = () => {
   };
 
   const selectChangeHandler = (role: string) => {
-    // const {value} = event.target;
-    setState((prevState) => ({...prevState, role: role as string}));
+    setState((prevState) => ({...prevState, role: role}));
   };
 
   const getFieldError = (fieldName: string) => {
@@ -144,23 +141,11 @@ const Register = () => {
               />
             </Grid>
             <Grid item xs={12}>
-              <FormControl fullWidth>
-                <InputLabel>{t('selectRole')}</InputLabel>
-                <Select
-                  value={state.role}
-                  onChange={() => selectChangeHandler}
-                  label={t('selectRole')}
-                  required
-                >
-                  <MenuItem value="summary">{t('summary')}</MenuItem>
-                  <MenuItem value="vacancies">{t('vacancies')}</MenuItem>
-                </Select>
-              </FormControl>
               <FormControl fullWidth sx={{mt: 2}}>
                 <InputLabel>{t('selectRole')}</InputLabel>
                 <Select
                   value={state.role}
-                  onChange={(e) => selectChangeHandler(e.target.value)}
+                  onChange={(e) => selectChangeHandler(e.target.value as string)}
                   label={t('selectRole')}
                   required
                 >
