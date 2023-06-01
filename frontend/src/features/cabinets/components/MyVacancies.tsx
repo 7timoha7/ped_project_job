@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {Button, Grid} from "@mui/material";
+import {Button} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../../app/hooks";
 import {getMyVacancies} from "../../vacancies/VacanciesThunks";

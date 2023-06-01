@@ -3,7 +3,6 @@ import type {GlobalSuccess, ValidationError} from '../../types';
 import {VacanciesOnServer} from "../../types";
 import {RootState} from "../../app/store";
 import {createVacancies, getMyVacancies, getVacancies, getVacanciesOne, removeVacancies} from "./VacanciesThunks";
-import {usersSlice} from "../users/usersSlice";
 
 interface VacanciesState {
   vacancies: VacanciesOnServer[];
