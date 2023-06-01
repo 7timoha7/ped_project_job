@@ -8,10 +8,12 @@ import HomeIcon from '@mui/icons-material/Home';
 import MyInformation from './components/MyInformation';
 import {CabinetState} from '../../types';
 import MySummary from "./components/MySummary";
+import MyVacancies from "./components/MyVacancies";
 
 const initialState: CabinetState = {
   mySummary: false,
   myInfo: true,
+  myVacancies: true,
 };
 
 interface Props {
@@ -25,11 +27,15 @@ const UserCabinet: React.FC<Props> = ({exist = initialState}) => {
 
 
   const handleClickSummary = () => {
-    setState((prev) => ({...prev, mySummary: true, myInfo: false}));
+    setState((prev) => ({...prev, mySummary: true, myInfo: false, myVacancies: false}));
+  };
+
+  const handleClickVacancies = () => {
+    setState((prev) => ({...prev, mySummary: false, myInfo: false, myVacancies: true}));
   };
 
   const handleClickMyInfo = () => {
-    setState((prev) => ({...prev, mySummary: false, myInfo: true}));
+    setState((prev) => ({...prev, mySummary: false, myInfo: true, myVacancies: false}));
   };
 
   return (
@@ -62,11 +68,19 @@ const UserCabinet: React.FC<Props> = ({exist = initialState}) => {
                   <ListItemText primary={t('mySummary')}/>
                 </ListItemButton>
 
+                <ListItemButton onClick={handleClickVacancies}>
+                  <ListItemIcon>
+                    <HomeIcon/>
+                  </ListItemIcon>
+                  <ListItemText primary={t('myVacancies')}/>
+                </ListItemButton>
+
               </List>
             </Grid>
             <Grid item xs>
               {state.myInfo && <MyInformation/>}
               {state.mySummary && <MySummary/>}
+              {state.myVacancies && <MyVacancies/>}
             </Grid>
           </Grid>
         </CardContent>

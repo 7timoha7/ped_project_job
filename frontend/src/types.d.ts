@@ -90,3 +90,29 @@ export interface GlobalSuccess {
 export interface CabinetState {
   [key: string]: boolean;
 }
+
+export interface SummaryToServer {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  education: string;
+  educationalInstitution: string;
+  startDate: string;
+  expirationDate: string;
+  desc: string;
+}
+
+export interface VacanciesToServer {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  education: string;
+  educationalInstitution: string;
+  startDate: string;
+  expirationDate: string;
+  desc: string;
+}
+
+

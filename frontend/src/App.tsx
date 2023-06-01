@@ -14,6 +14,9 @@ import {useTranslation} from 'react-i18next';
 import VerifyProtectedRoute from './components/UI/ProtectedRoute/VerifyProtectedRoute';
 import VerifyPage from './components/UI/VerifyPage/VerifyPage';
 import ConfirmPage from './components/UI/VerifyPage/ConfirmPage';
+import MySummary from "./features/cabinets/components/MySummary";
+import SummaryForm from "./features/summary/SummaryForm";
+import VacanciesForm from "./features/vacancies/VacanciesForm";
 
 function App() {
   const user = useAppSelector(selectUser);
@@ -70,8 +73,25 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/summaryForm"
+          element={
+            <ProtectedRoute isAllowed={user && Boolean(user)}>
+              <SummaryForm/>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/vacanciesForm"
+          element={
+            <ProtectedRoute isAllowed={user && Boolean(user)}>
+              <VacanciesForm/>
+            </ProtectedRoute>
+          }
+        />
         <Route path="*" element={<NoFoundPage/>}/>
       </Route>
+
     </Routes>
   );
 }

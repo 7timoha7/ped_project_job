@@ -2,14 +2,14 @@ import React from 'react';
 import {Button} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 
-const MySummary = () => {
+const MyVacancies = () => {
   const navigate = useNavigate();
   return (
     <div>
-      <Button onClick={() => navigate('/summaryForm')}>Create summary</Button>
+      <Button onClick={() => navigate('/vacanciesForm')}>Create vacancies</Button>
 
     </div>
   );
 };
 
-export default MySummary;
+export default MyVacancies;
