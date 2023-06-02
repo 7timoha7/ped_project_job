@@ -9,7 +9,7 @@
   "firstName": "First name",
   "lastName": "Last name",
   "phoneNumber": "Phone number",
-  "footerAddress": "address: Bishkek c. Logvinenko st.,55",
+  "footerAddress": "address: Bishkek c. Poiska Raboti st.,55",
   "phoneError": "Invalid phone number",
   "extraServices": "Extra services:",
   "createHotel": "Create hotel",
@@ -154,5 +154,7 @@
   "sure" : "Are you sure?",
   "restorePassword" : "Restore Password",
   "restorePasswordDesc": "Enter your email address. A new password will be sent to your email address.",
-  "mySummary": "My Summary"
+  "mySummary": "My Summary",
+  "jobSearch": "Job search",
+  "forEmployers": "For employers"
 }

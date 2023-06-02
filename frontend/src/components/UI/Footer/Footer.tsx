@@ -18,14 +18,10 @@ const Footer = () => {
             <Grid container justifyContent="space-between" alignItems="center">
               <Grid container item direction="column" xs={12} md={3}>
                 <Typography variant="body1" component="div" style={{ margin: 'auto' }}>
-                  +996 558 389288 <WhatsAppIcon />
+                  +996 555 555555 <WhatsAppIcon />
                 </Typography>
                 <Typography variant="body1" component="div" style={{ margin: 'auto' }}>
-                  +996 556 829978
-                  <CallIcon />
-                </Typography>
-                <Typography variant="body1" component="div" style={{ margin: 'auto' }}>
-                  +996 505 000024
+                  +996 555 555555
                   <CallIcon />
                 </Typography>
               </Grid>
@@ -33,11 +29,11 @@ const Footer = () => {
               </Grid>
               <Grid container item direction="column" xs={12} md={5}>
                 <Typography variant="body1" component="div" style={{ margin: 'auto' }}>
-                  <EmailIcon /> conference@eventm.kg
+                  <EmailIcon /> job@gmail.com
                 </Typography>
                 <Typography variant="body1" component="div" style={{ margin: 'auto' }}>
                   <Link href="https://www.instagram.com/eventm_agency" color="#FFF" underline="none">
-                    <InstagramIcon /> Eventm_agency
+                    <InstagramIcon /> Job_Original
                   </Link>
                 </Typography>
                 <Typography variant="body1" component="div" style={{ margin: 'auto' }}>
