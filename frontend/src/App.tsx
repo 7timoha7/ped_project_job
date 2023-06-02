@@ -19,6 +19,8 @@ import UserCabinet from "./features/cabinets/UserCabinet";
 import {selectVacanciesSuccess} from "./features/vacancies/VacanciesSlice";
 import Vacancies from "./features/vacancies/Vacancies";
 import Summary from "./features/summary/Summary";
+import VacanciesAll from "./features/vacancies/VacanciesAll";
+import SummaryAll from "./features/summary/SummaryAll";
 
 function App() {
   const user = useAppSelector(selectUser);
@@ -70,6 +72,8 @@ function App() {
         <Route path="/register" element={<Register/>}/>
         <Route path="/vacancies/:id" element={<Vacancies/>}/>
         <Route path="/summary/:id" element={<Summary/>}/>
+        <Route path="/vacanciesAll" element={<VacanciesAll/>}/>
+        <Route path="/summaryAll" element={<SummaryAll/>}/>
 
         <Route
           path="/my-cabinet"

@@ -4,7 +4,7 @@ import {SummaryOnServer} from "../../types";
 import {useAppDispatch, useAppSelector} from "../../app/hooks";
 import {selectUser} from "../users/usersSlice";
 import DeleteIcon from '@mui/icons-material/Delete';
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import {getMySummary, removeSummary} from "./summaaryThunks";
 import {selectLoadingRemoveSummary} from "./summarySlice";
 
@@ -17,6 +17,7 @@ const SummaryCard: React.FC<Props> = ({item}) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const loading = useAppSelector(selectLoadingRemoveSummary);
+  const location = useLocation();
 
   const deleteSummary = async () => {
     await dispatch(removeSummary(item._id));
@@ -36,7 +37,7 @@ const SummaryCard: React.FC<Props> = ({item}) => {
             {item.experience + 'года/лет'}
           </Typography>
 
-          {user?._id.toString() === item.user.toString() && (
+          {user?._id.toString() === item.user.toString() && location.pathname === 'my-cabinet' && (
             <IconButton
               onClick={(event) => {
                 event.stopPropagation();

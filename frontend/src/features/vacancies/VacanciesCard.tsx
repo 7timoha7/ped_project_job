@@ -6,7 +6,7 @@ import {selectUser} from "../users/usersSlice";
 import DeleteIcon from '@mui/icons-material/Delete';
 import {getMyVacancies, removeVacancies} from "./VacanciesThunks";
 import {selectLoadingRemoveVacancies} from "./VacanciesSlice";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 
 interface Props {
   item: VacanciesOnServer
@@ -17,6 +17,7 @@ const VacanciesCard: React.FC<Props> = ({item}) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const loading = useAppSelector(selectLoadingRemoveVacancies);
+  const location = useLocation();
 
   const deleteVacancies = async () => {
     await dispatch(removeVacancies(item._id));
@@ -36,7 +37,7 @@ const VacanciesCard: React.FC<Props> = ({item}) => {
             {item.nameOrganisation}
           </Typography>
 
-          {user?._id.toString() === item.user.toString() && (
+          {user?._id.toString() === item.user.toString() && location.pathname === 'my-cabinet' && (
             <IconButton
               onClick={(event) => {
                 event.stopPropagation();

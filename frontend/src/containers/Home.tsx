@@ -1,6 +1,6 @@
 import React from 'react';
-import { Outlet } from 'react-router-dom';
-import {CssBaseline, Typography} from '@mui/material';
+import {Outlet} from 'react-router-dom';
+import {CssBaseline} from '@mui/material';
 import Layout from '../components/UI/Layout/Layout';
 
 const Home = () => {

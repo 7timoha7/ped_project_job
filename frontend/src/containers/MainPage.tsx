@@ -34,7 +34,7 @@ const MainPage = () => {
               alignItems: 'center',
             }}
           >
-            <a href="ссылка_1" style={{color: 'white', textDecoration: 'none'}}>
+            <a href="/summaryAll" style={{color: 'white', textDecoration: 'none'}}>
               <Typography variant="h4">
                 {t('forEmployers')}
               </Typography>
@@ -66,7 +66,7 @@ const MainPage = () => {
               alignItems: 'center',
             }}
           >
-            <a href="ссылка_2" style={{color: 'white', textDecoration: 'none'}}>
+            <a href="/vacanciesAll" style={{color: 'white', textDecoration: 'none'}}>
               <Typography variant="h4">
                 {t('jobSearch')}
               </Typography>
