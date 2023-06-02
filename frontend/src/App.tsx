@@ -18,6 +18,7 @@ import VacanciesForm from "./features/vacancies/VacanciesForm";
 import UserCabinet from "./features/cabinets/UserCabinet";
 import {selectVacanciesSuccess} from "./features/vacancies/VacanciesSlice";
 import Vacancies from "./features/vacancies/Vacancies";
+import Summary from "./features/summary/Summary";
 
 function App() {
   const user = useAppSelector(selectUser);
@@ -67,7 +68,8 @@ function App() {
         <Route path="/" element={<MainPage/>}/>
         <Route path="/login" element={<Login/>}/>
         <Route path="/register" element={<Register/>}/>
-        <Route path="/Summary/:id" element={<Vacancies/>}/>
+        <Route path="/vacancies/:id" element={<Vacancies/>}/>
+        <Route path="/summary/:id" element={<Summary/>}/>
 
         <Route
           path="/my-cabinet"

@@ -21,9 +21,12 @@ const Summary = () => {
 
   return (
     <>
-      <Paper elevation={3} sx={{padding: '20px', margin: '20px'}}>
+      <Paper elevation={3} sx={{ padding: '20px', margin: '20px' }}>
         <Typography variant="h4" gutterBottom>
           Резюме
+        </Typography>
+        <Typography variant="body1" gutterBottom>
+          Должность: {summary?.jobTitle}
         </Typography>
         <Typography variant="h6" gutterBottom>
           Имя: {summary?.firstName} {summary?.lastName}
@@ -48,6 +51,9 @@ const Summary = () => {
         </Typography>
         <Typography variant="body1" gutterBottom>
           Описание: {summary?.desc}
+        </Typography>
+        <Typography variant="body1" gutterBottom>
+          Опыт: {summary?.experience}
         </Typography>
       </Paper>
     </>

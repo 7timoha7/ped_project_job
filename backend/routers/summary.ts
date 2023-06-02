@@ -4,6 +4,7 @@ import auth, {RequestWithUser} from "../middleware/auth";
 import Summary from "../models/Summary";
 import permit from "../middleware/permit";
 
+
 const summaryRouter = express.Router();
 
 // summaryRouter.post('/', auth, async (req, res, next) => {
@@ -87,6 +88,16 @@ summaryRouter.get('/', async (req, res, next) => {
   }
 });
 
+summaryRouter.get('/mySummary', auth, permit('summary'), async (req, res, next) => {
+  try {
+    const user = (req as RequestWithUser).user;
+    const summaryRes = await Summary.find({user: user._id});
+    return res.send(summaryRes);
+  } catch (e) {
+    return next(e);
+  }
+});
+
 summaryRouter.get('/:id', async (req, res) => {
   try {
     const result = await Summary.findById(req.params.id);
@@ -107,7 +118,12 @@ summaryRouter.delete('/summaryDelete/:id', auth, async (req, res, next) => {
     if (summary) {
       if (summary.user.toString() === user._id.toString()) {
         await Summary.deleteOne({_id: req.params.id});
-        return res.send({message: "OK"});
+        return res.send({
+          message: {
+            en: 'Summary delete successfully',
+            ru: 'Резюме успешно удалено',
+          }
+        });
       }
     }
   } catch (e) {

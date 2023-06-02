@@ -25,38 +25,38 @@ const SummaryCard: React.FC<Props> = ({item}) => {
 
   return (
     <>
-      {/*<Card variant="outlined" sx={{maxWidth: '100%', margin: '20px auto'}}*/}
-      {/*      onClick={() => navigate('/vacancies/' + item._id)}>*/}
-      {/*  <CardContent sx={{position: 'relative'}}>*/}
-      {/*    <Typography variant="h6" gutterBottom>*/}
-      {/*      {item.}*/}
-      {/*    </Typography>*/}
+      <Card variant="outlined" sx={{maxWidth: '100%', margin: '20px auto'}}
+            onClick={() => navigate('/summary/' + item._id)}>
+        <CardContent sx={{position: 'relative'}}>
+          <Typography variant="h6" gutterBottom>
+            {item.jobTitle}
+          </Typography>
 
-      {/*    <Typography variant="subtitle1" gutterBottom>*/}
-      {/*      {item.nameOrganisation}*/}
-      {/*    </Typography>*/}
+          <Typography variant="subtitle1" gutterBottom>
+            {item.experience + 'года/лет'}
+          </Typography>
 
-      {/*    {user?._id.toString() === item.user.toString() && (*/}
-      {/*      <IconButton*/}
-      {/*        onClick={(event) => {*/}
-      {/*          event.stopPropagation();*/}
-      {/*          void deleteSummary();*/}
-      {/*        }}*/}
-      {/*        disabled={loading === item._id}*/}
-      {/*        aria-label="delete"*/}
-      {/*        color="error"*/}
-      {/*        sx={{*/}
-      {/*          position: 'absolute',*/}
-      {/*          top: '50%',*/}
-      {/*          right: 0,*/}
-      {/*          transform: 'translateY(-50%)',*/}
-      {/*        }}*/}
-      {/*      >*/}
-      {/*        <DeleteIcon/>*/}
-      {/*      </IconButton>*/}
-      {/*    )}*/}
-      {/*  </CardContent>*/}
-      {/*</Card>*/}
+          {user?._id.toString() === item.user.toString() && (
+            <IconButton
+              onClick={(event) => {
+                event.stopPropagation();
+                void deleteSummary();
+              }}
+              disabled={loading === item._id}
+              aria-label="delete"
+              color="error"
+              sx={{
+                position: 'absolute',
+                top: '50%',
+                right: 0,
+                transform: 'translateY(-50%)',
+              }}
+            >
+              <DeleteIcon/>
+            </IconButton>
+          )}
+        </CardContent>
+      </Card>
     </>
   );
 };
