@@ -39,7 +39,7 @@ summaryRouter.post('/', auth, permit('summary'), async (req, res, next) => {
   const currentDate = new Date();
   try {
     if (user.isVerified) {
-      const order = new Summary({
+      const summary = new Summary({
         user: user._id,
         datetime: currentDate.toString(),
         email: req.body.email,
@@ -51,9 +51,11 @@ summaryRouter.post('/', auth, permit('summary'), async (req, res, next) => {
         education: req.body.education,
         educationalInstitution: req.body.educationalInstitution,
         desc: req.body.desc,
+        jobTitle: req.body.jobTitle,
+        experience: req.body.experience,
       });
 
-      await order.save();
+      await summary.save();
       return res.send({
         message: {
           en: 'Summary created successfully',

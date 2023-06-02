@@ -67,7 +67,7 @@ function App() {
         <Route path="/" element={<MainPage/>}/>
         <Route path="/login" element={<Login/>}/>
         <Route path="/register" element={<Register/>}/>
-        <Route path="/Vacancies/:id" element={<Vacancies/>}/>
+        <Route path="/Summary/:id" element={<Vacancies/>}/>
 
         <Route
           path="/my-cabinet"

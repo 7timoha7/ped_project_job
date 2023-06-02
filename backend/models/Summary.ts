@@ -49,7 +49,18 @@ const SummarySchema = new Schema({
     type: String,
     required: true,
   },
-  desc: String,
+  desc: {
+    type: String,
+    required: true,
+  },
+  jobTitle: {
+    type: String,
+    required: true,
+  },
+  experience:{
+    type: String,
+    required: true,
+  }
 });
 
 const Summary = mongoose.model('Summary', SummarySchema);

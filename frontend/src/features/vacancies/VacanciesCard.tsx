@@ -16,7 +16,7 @@ const VacanciesCard: React.FC<Props> = ({item}) => {
   const user = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const loading = useAppSelector(selectLoadingRemoveVacancies)
+  const loading = useAppSelector(selectLoadingRemoveVacancies);
 
   const deleteVacancies = async () => {
     await dispatch(removeVacancies(item._id));

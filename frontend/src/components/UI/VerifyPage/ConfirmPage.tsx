@@ -13,7 +13,7 @@ const ConfirmPage = () => {
 
   const navigateToCabinet = async () => {
     await dispatch(reAuthorization());
-    navigate('/my-cabinet');
+    await navigate('/my-cabinet');
   };
 
   useEffect(() => {

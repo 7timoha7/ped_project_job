@@ -4,7 +4,7 @@ import {useAppDispatch} from "../../app/hooks";
 import {useNavigate} from "react-router-dom";
 import dayjs from "dayjs";
 import {createSummary} from "./summaaryThunks";
-import {Button, Container, Grid, TextField} from "@mui/material";
+import {Button, Card, Container, Grid, TextField, Typography} from "@mui/material";
 import {LocalizationProvider, MobileDatePicker} from "@mui/x-date-pickers";
 import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
 
@@ -20,6 +20,18 @@ const SummaryForm = () => {
     startDate: '',
     expirationDate: '',
     desc: '',
+    jobTitle: '',
+    experience: '',
+  });
+
+  const [experienceState, setExperienceState] = useState<{
+    startDate: string;
+    expirationDate: string;
+    experience: string;
+  }>({
+    startDate: '',
+    expirationDate: '',
+    experience: '',
   });
 
   const dispatch = useAppDispatch();
@@ -66,91 +78,184 @@ const SummaryForm = () => {
       startDate: '',
       expirationDate: '',
       desc: '',
+      jobTitle: '',
+      experience: experienceState.experience,
     });
 
     await navigate('/my-cabinet');
+  };
+
+  console.log(formState);
+
+  const handleStartDateExperienceChange = (date: Date | null) => {
+    const startDate = date ? dayjs(date).format('DD.MM.YYYY') : '';
+    const expirationDate = experienceState.expirationDate;
+    const newExperience = calculateExperience(startDate, expirationDate);
+
+    setExperienceState((prevState) => ({
+      ...prevState,
+      startDate,
+      experience: newExperience,
+    }));
+
+    setFormState((prevState) => ({
+      ...prevState,
+      experience: newExperience,
+    }));
+  };
+
+  const handleExpirationDateExperienceChange = (date: Date | null) => {
+    const startDate = experienceState.startDate;
+    const expirationDate = date ? dayjs(date).format('DD.MM.YYYY') : '';
+    const newExperience = calculateExperience(startDate, expirationDate);
+
+    setExperienceState((prevState) => ({
+      ...prevState,
+      expirationDate,
+      experience: newExperience,
+    }));
+
+    setFormState((prevState) => ({
+      ...prevState,
+      experience: newExperience,
+    }));
+  };
+
+  const calculateExperience = (startDate: string, expirationDate: string): string => {
+    if (startDate && expirationDate) {
+      const start = dayjs(startDate, 'DD.MM.YYYY');
+      const end = dayjs(expirationDate, 'DD.MM.YYYY');
+      const yearsDiff = end.diff(start, 'year');
+      const monthsDiff = end.diff(start, 'month') % 12;
+      const experience =
+        yearsDiff + (monthsDiff > 0 ? monthsDiff / 12 : 0);
+      return experience.toFixed(1);
+    }
+    return '';
   };
 
   return (
     <>
       <Container maxWidth="sm">
         <form onSubmit={handleSubmit}>
-          <TextField
-            label="First Name"
-            name="firstName"
-            value={formState.firstName}
-            onChange={handleChange}
-            required
-            fullWidth
-            margin="normal"
-          />
-          <TextField
-            label="Last Name"
-            name="lastName"
-            value={formState.lastName}
-            onChange={handleChange}
-            required
-            fullWidth
-            margin="normal"
-          />
-          <TextField
-            label="Email"
-            type="email"
-            name="email"
-            value={formState.email}
-            onChange={handleChange}
-            required
-            fullWidth
-            margin="normal"
-          />
-          <TextField
-            label="Phone Number"
-            name="phoneNumber"
-            value={formState.phoneNumber}
-            onChange={handleChange}
-            required
-            fullWidth
-            margin="normal"
-          />
-          <TextField
-            label="Education"
-            name="education"
-            value={formState.education}
-            onChange={handleChange}
-            required
-            fullWidth
-            margin="normal"
-          />
-          <TextField
-            label="Educational Institution"
-            name="educationalInstitution"
-            value={formState.educationalInstitution}
-            onChange={handleChange}
-            required
-            fullWidth
-            margin="normal"
-          />
+          <Card sx={{p: 2, mb: 2}}>
+            <TextField
+              label="Job title"
+              name="jobTitle"
+              value={formState.jobTitle}
+              onChange={handleChange}
+              required
+              fullWidth
+              margin="normal"
+            />
+            <TextField
+              label="First Name"
+              name="firstName"
+              value={formState.firstName}
+              onChange={handleChange}
+              required
+              fullWidth
+              margin="normal"
+            />
+            <TextField
+              label="Last Name"
+              name="lastName"
+              value={formState.lastName}
+              onChange={handleChange}
+              required
+              fullWidth
+              margin="normal"
+            />
+            <TextField
+              label="Email"
+              type="email"
+              name="email"
+              value={formState.email}
+              onChange={handleChange}
+              required
+              fullWidth
+              margin="normal"
+            />
+            <TextField
+              label="Phone Number"
+              name="phoneNumber"
+              value={formState.phoneNumber}
+              onChange={handleChange}
+              required
+              fullWidth
+              margin="normal"
+            />
+          </Card>
 
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
-                <MobileDatePicker
-                  label="Start Date"
-                  value={formState.startDate ? dayjs(formState.startDate).toDate() : null}
-                  onChange={handleStartDateChange}
-                  format="DD.MM.YYYY"
-                />
+          <Card sx={{p: 2, mt: 2, mb: 2}}>
+            <TextField
+              label="Education"
+              name="education"
+              value={formState.education}
+              onChange={handleChange}
+              required
+              fullWidth
+              margin="normal"
+            />
+            <TextField
+              label="Educational Institution"
+              name="educationalInstitution"
+              value={formState.educationalInstitution}
+              onChange={handleChange}
+              required
+              fullWidth
+              margin="normal"
+            />
+
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <Grid container spacing={2}>
+                <Grid item xs={12} sm={6}>
+                  <MobileDatePicker
+                    label="Start Date"
+                    value={formState.startDate ? dayjs(formState.startDate).toDate() : null}
+                    onChange={handleStartDateChange}
+                    format="DD.MM.YYYY"
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <MobileDatePicker
+                    label="Expiration Date"
+                    value={formState.expirationDate ? dayjs(formState.expirationDate).toDate() : null}
+                    onChange={handleExpirationDateChange}
+                    format="DD.MM.YYYY"
+                  />
+                </Grid>
               </Grid>
-              <Grid item xs={12} sm={6}>
-                <MobileDatePicker
-                  label="Expiration Date"
-                  value={formState.expirationDate ? dayjs(formState.expirationDate).toDate() : null}
-                  onChange={handleExpirationDateChange}
-                  format="DD.MM.YYYY"
-                />
+            </LocalizationProvider>
+          </Card>
+
+          <Card sx={{p: 2, mb: 2}}>
+            <Typography textAlign={'center'} mb={2}>
+              Опыт работы
+            </Typography>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <Grid container spacing={2}>
+                <Grid item xs={12} sm={6}>
+                  <MobileDatePicker
+                    label="Start Date"
+                    value={experienceState.startDate ? dayjs(experienceState.startDate, 'DD.MM.YYYY').toDate() : null}
+                    onChange={handleStartDateExperienceChange}
+                    format="DD.MM.YYYY"
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <MobileDatePicker
+                    label="Expiration Date"
+                    value={experienceState.expirationDate ? dayjs(experienceState.expirationDate, 'DD.MM.YYYY').toDate() : null}
+                    onChange={handleExpirationDateExperienceChange}
+                    format="DD.MM.YYYY"
+                  />
+                </Grid>
               </Grid>
-            </Grid>
-          </LocalizationProvider>
+            </LocalizationProvider>
+          </Card>
+
+
           <TextField
             label="Description"
             name="desc"

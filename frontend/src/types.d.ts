@@ -66,6 +66,8 @@ export interface SummaryToServer {
   startDate: string;
   expirationDate: string;
   desc: string;
+  jobTitle: string,
+  experience: string,
 }
 
 export interface SummaryOnServer extends SummaryToServer {

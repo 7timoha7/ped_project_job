@@ -10,7 +10,7 @@ const vacanciesRouter = express.Router();
 //   try {
 //     const user = (req as RequestWithUser).user;
 //     const currentDate = new Date();
-//     const vacancies = await Vacancies.create({
+//     const vacancies = await Summary.create({
 //       user: user._id,
 //       datetime: currentDate.toString(),
 //       email: req.body.email,
@@ -52,14 +52,14 @@ vacanciesRouter.post('/', auth, permit('vacancies'), async (req, res, next) => {
       await order.save();
       return res.send({
         message: {
-          en: 'Vacancies created successfully',
+          en: 'Summary created successfully',
           ru: 'Вокансия успешно создан',
         },
       });
     } else {
       res.status(401).send({
         message: {
-          en: 'for Vacancies you must verify your account',
+          en: 'for Summary you must verify your account',
           ru: 'для создания Вокансия вы должны подтвердить свой аккаунт',
         },
       });
@@ -113,7 +113,7 @@ vacanciesRouter.delete('/vacanciesDelete/:id', auth, async (req, res, next) => {
         await Vacancies.deleteOne({_id: req.params.id});
         return res.send({
           message: {
-            en: 'Vacancies delete successfully',
+            en: 'Summary delete successfully',
             ru: 'Вокансия успешно Удалена',
           }
         });
