@@ -4,7 +4,18 @@ import {useAppDispatch} from "../../app/hooks";
 import {useNavigate} from "react-router-dom";
 import dayjs from "dayjs";
 import {createSummary} from "./summaaryThunks";
-import {Button, Card, Container, Grid, TextField, Typography} from "@mui/material";
+import {
+  Button,
+  Card,
+  Container,
+  FormControl,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+  Typography
+} from "@mui/material";
 import {LocalizationProvider, MobileDatePicker} from "@mui/x-date-pickers";
 import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
 
@@ -22,6 +33,7 @@ const SummaryForm = () => {
     desc: '',
     jobTitle: '',
     experience: '',
+    region: '',
   });
 
   const [experienceState, setExperienceState] = useState<{
@@ -80,12 +92,11 @@ const SummaryForm = () => {
       desc: '',
       jobTitle: '',
       experience: experienceState.experience,
+      region: '',
     });
 
     await navigate('/my-cabinet');
   };
-
-  console.log(formState);
 
   const handleStartDateExperienceChange = (date: Date | null) => {
     const startDate = date ? dayjs(date).format('DD.MM.YYYY') : '';
@@ -118,6 +129,13 @@ const SummaryForm = () => {
     setFormState((prevState) => ({
       ...prevState,
       experience: newExperience,
+    }));
+  };
+
+  const handleRegionChange = (region: string) => {
+    setFormState((prevState) => ({
+      ...prevState,
+      region: region
     }));
   };
 
@@ -254,6 +272,20 @@ const SummaryForm = () => {
               </Grid>
             </LocalizationProvider>
           </Card>
+
+          <FormControl fullWidth sx={{mt: 2}}>
+            <InputLabel>{'region'}</InputLabel>
+            <Select
+              value={formState.region}
+              onChange={(e) => handleRegionChange(e.target.value as string)}
+              label={'region'}
+              required
+            >
+              <MenuItem value="Bishkek">{'Bishkek'}</MenuItem>
+              <MenuItem value="Osh">{'Osh'}</MenuItem>
+              <MenuItem value="Narin">{'Narin'}</MenuItem>
+            </Select>
+          </FormControl>
 
 
           <TextField

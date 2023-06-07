@@ -54,6 +54,7 @@ summaryRouter.post('/', auth, permit('summary'), async (req, res, next) => {
         desc: req.body.desc,
         jobTitle: req.body.jobTitle,
         experience: req.body.experience,
+        region: req.body.region,
       });
 
       await summary.save();

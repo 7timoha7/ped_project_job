@@ -53,6 +53,9 @@ const Summary = () => {
           Описание: {summary?.desc}
         </Typography>
         <Typography variant="body1" gutterBottom>
+          Регион: {summary?.region}
+        </Typography>
+        <Typography variant="body1" gutterBottom>
           Опыт: {summary?.experience}
         </Typography>
       </Paper>

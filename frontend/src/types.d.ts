@@ -66,8 +66,9 @@ export interface SummaryToServer {
   startDate: string;
   expirationDate: string;
   desc: string;
-  jobTitle: string,
-  experience: string,
+  jobTitle: string;
+  experience: string;
+  region: string;
 }
 
 export interface SummaryOnServer extends SummaryToServer {
@@ -80,9 +81,9 @@ export interface VacanciesToServer {
   requirements: string;
   vacancyDesc: string;
   vacancyName: string;
-  salariesFrom: string,
-  salariesTo: string,
-  region: string,
+  salariesFrom: string;
+  salariesTo: string;
+  region: string;
 }
 
 export interface VacanciesOnServer extends VacanciesToServer {

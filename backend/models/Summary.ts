@@ -60,7 +60,12 @@ const SummarySchema = new Schema({
   experience:{
     type: String,
     required: true,
-  }
+  },
+  region: {
+    type: String,
+    required: true,
+    enum: ['Bishkek', 'Osh', 'Narin'],
+  },
 });
 
 const Summary = mongoose.model('Summary', SummarySchema);
