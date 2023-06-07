@@ -34,7 +34,7 @@ const SummaryCard: React.FC<Props> = ({item}) => {
           </Typography>
 
           <Typography variant="subtitle1" gutterBottom>
-            {item.experience + 'года/лет'}
+            {item.experience + ' года/лет'}
           </Typography>
 
           {user?._id.toString() === item.user.toString() && location.pathname === 'my-cabinet' && (

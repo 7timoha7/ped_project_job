@@ -78,9 +78,11 @@ export interface SummaryOnServer extends SummaryToServer {
 export interface VacanciesToServer {
   nameOrganisation: string;
   requirements: string;
-  salaries: string;
   vacancyDesc: string;
   vacancyName: string;
+  salariesFrom: string,
+  salariesTo: string,
+  region: string,
 }
 
 export interface VacanciesOnServer extends VacanciesToServer {

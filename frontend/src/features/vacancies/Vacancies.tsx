@@ -37,7 +37,10 @@ const Vacancies = () => {
           Требования к кандидату: {vacancies?.requirements}
         </Typography>
         <Typography variant="body1" gutterBottom>
-          Зарплата: {vacancies?.salaries}
+          Регион: {vacancies?.region}
+        </Typography>
+        <Typography variant="body1" gutterBottom>
+          Зарплата: {vacancies?.salariesFrom + ' - ' + vacancies?.salariesTo}
         </Typography>
       </Paper>
     </>

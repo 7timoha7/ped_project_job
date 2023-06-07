@@ -29,13 +29,22 @@ const VacanciesSchema = new Schema({
     type: String,
     required: true,
   },
-  salaries: {
+  salariesFrom: {
+    type: String,
+    required: true,
+  },
+  salariesTo: {
     type: String,
     required: true,
   },
   requirements:{
     type: String,
     required: true,
+  },
+  region: {
+    type: String,
+    required: true,
+    enum: ['Bishkek', 'Osh', 'Narin'],
   },
 });
 
