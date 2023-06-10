@@ -3,7 +3,6 @@ import mongoose from "mongoose";
 import auth, {RequestWithUser} from "../middleware/auth";
 import Vacancies from "../models/Vacancies";
 import permit from "../middleware/permit";
-import Summary from "../models/Summary";
 
 const vacanciesRouter = express.Router();
 

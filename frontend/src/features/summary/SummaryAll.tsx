@@ -37,53 +37,59 @@ const SummaryAll = () => {
     });
   };
 
-  const handleSearch = (search: SearchType) => {
-    dispatch(getSummary(search));
+  const handleSearch = async (e: React.FormEvent) => {
+    e.preventDefault();
+    await dispatch(getSummary(searchTerm));
   };
 
   return (
     <>
       <Card sx={{p: 2, mb: 2}}>
-        <Grid container spacing={2} alignItems="center">
-          <Grid item xs={8}>
-            <TextField
-              label="By experience"
-              value={searchTerm.experience ?? ''}
-              onChange={handleInputChange}
-              type="number"
-              name="experience"
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={4}>
-            <Button color="success" onClick={() => handleSearch(searchTerm)} variant="contained">
-              <ContentPasteSearchIcon />
-            </Button>
-          </Grid>
-        </Grid>
-
-        <Grid container spacing={2} alignItems="center" mt={2}>
-          <Grid item xs={8}>
-            <FormControl fullWidth>
-              <InputLabel>By region</InputLabel>
-              <Select
-                value={searchTerm.region ?? ''}
-                onChange={(e) => handleRegionChange(e.target.value as string)}
-                label="By region"
+        <form onSubmit={handleSearch}>
+          <Grid container spacing={2} alignItems="center">
+            <Grid item xs={8}>
+              <TextField
+                label="By experience"
+                value={searchTerm.experience ?? ''}
+                onChange={handleInputChange}
+                type="number"
+                name="experience"
+                fullWidth
                 required
-              >
-                <MenuItem value="Bishkek">Bishkek</MenuItem>
-                <MenuItem value="Osh">Osh</MenuItem>
-                <MenuItem value="Narin">Narin</MenuItem>
-              </Select>
-            </FormControl>
+              />
+            </Grid>
+            <Grid item xs={4}>
+              <Button color="success" type={'submit'} variant="contained">
+                <ContentPasteSearchIcon/>
+              </Button>
+            </Grid>
           </Grid>
-          <Grid item xs={4}>
-            <Button color="success" size="medium" onClick={() => handleSearch(searchTerm)} variant="contained">
-              <ContentPasteSearchIcon />
-            </Button>
+        </form>
+
+        <form onSubmit={handleSearch}>
+          <Grid container spacing={2} alignItems="center" mt={2}>
+            <Grid item xs={8}>
+              <FormControl fullWidth>
+                <InputLabel>By region</InputLabel>
+                <Select
+                  value={searchTerm.region ? searchTerm.region : ''}
+                  onChange={(e) => handleRegionChange(e.target.value as string)}
+                  label="By region"
+                  required
+                >
+                  <MenuItem value="Bishkek">Bishkek</MenuItem>
+                  <MenuItem value="Osh">Osh</MenuItem>
+                  <MenuItem value="Narin">Narin</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid item xs={4}>
+              <Button color="success" size="medium" type={'submit'} variant="contained">
+                <ContentPasteSearchIcon/>
+              </Button>
+            </Grid>
           </Grid>
-        </Grid>
+        </form>
       </Card>
 
 

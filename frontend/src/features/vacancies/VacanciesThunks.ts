@@ -1,12 +1,5 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import {
-  GlobalSuccess,
-  SearchType,
-  SummaryOnServer,
-  VacanciesOnServer,
-  VacanciesToServer,
-  ValidationError
-} from "../../types";
+import {GlobalSuccess, SearchType, VacanciesOnServer, VacanciesToServer, ValidationError} from "../../types";
 import axiosApi from "../../axiosApi";
 import {isAxiosError} from "axios";
 import {RootState} from "../../app/store";
