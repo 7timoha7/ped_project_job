@@ -54,9 +54,13 @@ summaryRouter.post('/', auth, permit('summary'), async (req, res, next) => {
 
 summaryRouter.get('/', async (req, res, next) => {
   try {
-    const experience = req.query;
+    const experience = req.query.experience;
+    const region = req.query.region;
     if (experience) {
-      const summaryRes = await Summary.find(experience);
+      const summaryRes = await Summary.find({experience: experience});
+      return res.send(summaryRes);
+    } else if (region) {
+      const summaryRes = await Summary.find({region: region});
       return res.send(summaryRes);
     } else {
       const summaryRes = await Summary.find();

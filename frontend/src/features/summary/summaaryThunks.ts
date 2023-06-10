@@ -1,5 +1,5 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import {GlobalSuccess, SummaryToServer, SummaryOnServer, ValidationError} from "../../types";
+import {GlobalSuccess, SummaryToServer, SummaryOnServer, ValidationError, SearchType} from "../../types";
 import axiosApi from "../../axiosApi";
 import {isAxiosError} from "axios";
 import {RootState} from "../../app/store";
@@ -22,10 +22,13 @@ export const createSummary = createAsyncThunk<GlobalSuccess, SummaryToServer, { 
   },
 );
 
-export const getSummary = createAsyncThunk<SummaryOnServer[], number | undefined>('summary/getSummary', async ( number) => {
+export const getSummary = createAsyncThunk<SummaryOnServer[], SearchType | undefined>('summary/getSummary', async ( search) => {
   try {
-    if (number) {
-      const response = await axiosApi.get<SummaryOnServer[]>('summary?experience=' + number);
+    if (search?.experience) {
+      const response = await axiosApi.get<SummaryOnServer[]>('summary?experience=' + search.experience);
+      return response.data;
+    } else if (search?.region) {
+      const response = await axiosApi.get<SummaryOnServer[]>('summary?region=' + search.region);
       return response.data;
     }
     const responseOrders = await axiosApi.get<SummaryOnServer[]>('/summary');

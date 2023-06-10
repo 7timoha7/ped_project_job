@@ -92,4 +92,11 @@ export interface VacanciesOnServer extends VacanciesToServer {
 }
 
 
+export interface SearchType {
+  experience: number | null;
+  region: string | null;
+}
+
+
+
 

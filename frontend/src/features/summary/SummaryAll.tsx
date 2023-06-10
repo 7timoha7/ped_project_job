@@ -3,62 +3,95 @@ import {useAppDispatch, useAppSelector} from '../../app/hooks';
 import {selectSummary} from './summarySlice';
 import {getSummary} from './summaaryThunks';
 import SummaryCard from './SummaryCard';
-import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
-import Box from '@mui/material/Box';
-import {Button} from "@mui/material";
+import {Button, Card, FormControl, Grid, InputLabel, MenuItem, Select} from "@mui/material";
+import {SearchType} from "../../types";
+import ContentPasteSearchIcon from '@mui/icons-material/ContentPasteSearch';
 
 const SummaryAll = () => {
   const summaryAll = useAppSelector(selectSummary);
   const dispatch = useAppDispatch();
-  const [searchTerm, setSearchTerm] = useState<number>(0);
+  const [searchTerm, setSearchTerm] = useState<SearchType>({
+    experience: null,
+    region: null,
+  });
 
   useEffect(() => {
     dispatch(getSummary());
   }, [dispatch]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(parseInt(e.target.value));
+    const {name, value} = e.target;
+    if (name === 'experience') {
+      setSearchTerm({
+        [name]: parseInt(value),
+        region: null,
+      });
+    }
   };
 
-  const handleSearch = (number: number) => {
-    dispatch(getSummary(number));
+  const handleRegionChange = (region: string) => {
+    setSearchTerm({
+      region: region,
+      experience: null,
+    });
   };
 
-  const summarySearch = summaryAll.map((item) => {
-    return {label: item.jobTitle};
-  });
+  const handleSearch = (search: SearchType) => {
+    dispatch(getSummary(search));
+  };
 
   return (
     <>
-      <Autocomplete
-        disablePortal
-        id="combo-box-demo"
-        options={summarySearch}
-        getOptionLabel={(option) => option.label}
-        sx={{width: 300}}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            label="Search by specialty"
-            value={searchTerm}
-            onChange={handleInputChange}
-          />
-        )}
-      />
+      <Card sx={{p: 2, mb: 2}}>
+        <Grid container spacing={2} alignItems="center">
+          <Grid item xs={8}>
+            <TextField
+              label="By experience"
+              value={searchTerm.experience ?? ''}
+              onChange={handleInputChange}
+              type="number"
+              name="experience"
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={4}>
+            <Button color="success" onClick={() => handleSearch(searchTerm)} variant="contained">
+              <ContentPasteSearchIcon />
+            </Button>
+          </Grid>
+        </Grid>
 
-      <Box sx={{display: 'flex', alignItems: 'center', mt: 2}}>
-        <Button onClick={() => handleSearch(searchTerm)} sx={{mr: 2}}>Найти</Button>
-        <TextField
-          label="Найти по опыту работы"
-          value={searchTerm}
-          onChange={handleInputChange}
-        />
-      </Box>
+        <Grid container spacing={2} alignItems="center" mt={2}>
+          <Grid item xs={8}>
+            <FormControl fullWidth>
+              <InputLabel>By region</InputLabel>
+              <Select
+                value={searchTerm.region ?? ''}
+                onChange={(e) => handleRegionChange(e.target.value as string)}
+                label="By region"
+                required
+              >
+                <MenuItem value="Bishkek">Bishkek</MenuItem>
+                <MenuItem value="Osh">Osh</MenuItem>
+                <MenuItem value="Narin">Narin</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={4}>
+            <Button color="success" size="medium" onClick={() => handleSearch(searchTerm)} variant="contained">
+              <ContentPasteSearchIcon />
+            </Button>
+          </Grid>
+        </Grid>
+      </Card>
 
-      {summaryAll.map((item) => {
-        return <SummaryCard item={item} key={item._id}/>;
-      })}
+
+      <Card sx={{p: 2, mb: 2}}>
+        {summaryAll.map((item) => {
+          return <SummaryCard item={item} key={item._id}/>;
+        })}
+      </Card>
     </>
   );
 };
