@@ -37,7 +37,7 @@ const SummaryCard: React.FC<Props> = ({item}) => {
             {item.experience + ' года/лет'}
           </Typography>
 
-          {user?._id.toString() === item.user.toString() && location.pathname === 'my-cabinet' && (
+          {user?._id.toString() === item.user.toString() && location.pathname === '/my-cabinet' && (
             <IconButton
               onClick={(event) => {
                 event.stopPropagation();
