@@ -1,12 +1,22 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import {GlobalSuccess, VacanciesOnServer, VacanciesToServer, ValidationError} from "../../types";
+import {
+  GlobalSuccess,
+  SearchType,
+  SummaryOnServer,
+  VacanciesOnServer,
+  VacanciesToServer,
+  ValidationError
+} from "../../types";
 import axiosApi from "../../axiosApi";
 import {isAxiosError} from "axios";
 import {RootState} from "../../app/store";
 
-export const createVacancies = createAsyncThunk<GlobalSuccess, VacanciesToServer, { state: RootState; rejectValue: ValidationError }>(
+export const createVacancies = createAsyncThunk<GlobalSuccess, VacanciesToServer, {
+  state: RootState;
+  rejectValue: ValidationError
+}>(
   'vacancies/createVacancies',
-  async (vacancies, { getState, rejectWithValue }) => {
+  async (vacancies, {getState, rejectWithValue}) => {
     const user = getState().users.user;
     try {
       if (user) {
@@ -22,10 +32,27 @@ export const createVacancies = createAsyncThunk<GlobalSuccess, VacanciesToServer
   },
 );
 
-export const getVacancies = createAsyncThunk<VacanciesOnServer[]>('vacancies/getVacancies', async () => {
+// export const getVacancies = createAsyncThunk<VacanciesOnServer[]>('vacancies/getVacancies', async () => {
+//   try {
+//     const responseOrders = await axiosApi.get<VacanciesOnServer[]>('/vacancies');
+//     return responseOrders.data;
+//   } catch {
+//     throw new Error();
+//   }
+// });
+
+export const getVacancies = createAsyncThunk<VacanciesOnServer[], SearchType | undefined>('vacancies/getVacancies', async (search) => {
   try {
-    const responseOrders = await axiosApi.get<VacanciesOnServer[]>('/vacancies');
-    return responseOrders.data;
+    if (search?.region) {
+      const response = await axiosApi.get<VacanciesOnServer[]>('vacancies?region=' + search.region);
+      return response.data;
+    } else if (search?.salary) {
+      const {salariesFrom, salariesTo} = search.salary;
+      const response = await axiosApi.get<VacanciesOnServer[]>('vacancies?salaryFrom=' + salariesFrom + '&salaryTo=' + salariesTo);
+      return response.data;
+    }
+    const response = await axiosApi.get<VacanciesOnServer[]>('/summary');
+    return response.data;
   } catch {
     throw new Error();
   }

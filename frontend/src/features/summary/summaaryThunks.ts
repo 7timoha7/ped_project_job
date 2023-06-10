@@ -31,8 +31,8 @@ export const getSummary = createAsyncThunk<SummaryOnServer[], SearchType | undef
       const response = await axiosApi.get<SummaryOnServer[]>('summary?region=' + search.region);
       return response.data;
     }
-    const responseOrders = await axiosApi.get<SummaryOnServer[]>('/summary');
-    return responseOrders.data;
+    const response = await axiosApi.get<SummaryOnServer[]>('/summary');
+    return response.data;
   } catch {
     throw new Error();
   }

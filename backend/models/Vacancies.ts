@@ -30,11 +30,11 @@ const VacanciesSchema = new Schema({
     required: true,
   },
   salariesFrom: {
-    type: String,
+    type: Number,
     required: true,
   },
   salariesTo: {
-    type: String,
+    type: Number,
     required: true,
   },
   requirements:{

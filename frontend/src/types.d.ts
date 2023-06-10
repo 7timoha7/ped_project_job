@@ -81,8 +81,8 @@ export interface VacanciesToServer {
   requirements: string;
   vacancyDesc: string;
   vacancyName: string;
-  salariesFrom: string;
-  salariesTo: string;
+  salariesFrom: Number;
+  salariesTo: Number;
   region: string;
 }
 
@@ -93,8 +93,12 @@ export interface VacanciesOnServer extends VacanciesToServer {
 
 
 export interface SearchType {
-  experience: number | null;
+  experience?: number | null;
   region: string | null;
+  salary?: {
+    salariesFrom: Number | null,
+    salariesTo: Number | null,
+  };
 }
 
 

@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import auth, {RequestWithUser} from "../middleware/auth";
 import Vacancies from "../models/Vacancies";
 import permit from "../middleware/permit";
+import Summary from "../models/Summary";
 
 const vacanciesRouter = express.Router();
 
@@ -47,10 +48,29 @@ vacanciesRouter.post('/', auth, permit('vacancies'), async (req, res, next) => {
   }
 });
 
+
+
 vacanciesRouter.get('/', async (req, res, next) => {
   try {
-    const vacanciesRes = await Vacancies.find();
-    return res.send(vacanciesRes);
+    const experience = req.query.experience;
+    const salaryFrom = req.query.salaryFrom;
+    const salaryTo = req.query.salaryTo;
+
+    if (experience) {
+      const vacanciesRes = await Vacancies.find({ experience: experience });
+      return res.send(vacanciesRes);
+    } else if (salaryFrom && salaryTo) {
+      const vacanciesRes = await Vacancies.find({
+        $and: [
+          { salariesFrom: { $gte: salaryFrom } },
+          { salariesTo: { $lte: salaryTo } }
+        ]
+      });
+      return res.send(vacanciesRes);
+    } else {
+      const vacanciesRes = await Vacancies.find();
+      return res.send(vacanciesRes);
+    }
   } catch (e) {
     return next(e);
   }

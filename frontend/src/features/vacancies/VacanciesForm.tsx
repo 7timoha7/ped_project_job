@@ -5,15 +5,14 @@ import {useNavigate} from "react-router-dom";
 import {Button, Container, FormControl, InputLabel, MenuItem, Select, TextField} from "@mui/material";
 import {createVacancies} from "./VacanciesThunks";
 
-
 const VacanciesForm = () => {
   const [formState, setFormState] = useState<VacanciesToServer>({
     nameOrganisation: '',
     requirements: '',
     vacancyDesc: '',
     vacancyName: '',
-    salariesFrom: '',
-    salariesTo: '',
+    salariesFrom: 0,
+    salariesTo: 0,
     region: '',
   });
 
@@ -36,8 +35,8 @@ const VacanciesForm = () => {
       requirements: '',
       vacancyDesc: '',
       vacancyName: '',
-      salariesFrom: '',
-      salariesTo: '',
+      salariesFrom: 0,
+      salariesTo: 0,
       region: '',
     });
 
@@ -90,6 +89,13 @@ const VacanciesForm = () => {
             required
             fullWidth
             margin="normal"
+            type="number"
+            inputProps={{
+              min: '0',
+              step: '1',
+            }}
+            error={Number(formState.salariesFrom) < 0}
+            helperText={Number(formState.salariesFrom) < 0 ? 'Invalid value' : ''}
           />
           <TextField
             label="Salaries to"
@@ -99,6 +105,16 @@ const VacanciesForm = () => {
             required
             fullWidth
             margin="normal"
+            type="number"
+            inputProps={{
+              min: '0',
+              step: '1',
+            }}
+            error={Number(formState.salariesTo) < 0 || Number(formState.salariesTo) < Number(formState.salariesFrom)}
+            helperText={
+              (Number(formState.salariesTo) < 0 || Number(formState.salariesTo) < Number(formState.salariesFrom)) ?
+                'Invalid value' : ''
+            }
           />
 
           <FormControl fullWidth sx={{mt: 2}}>

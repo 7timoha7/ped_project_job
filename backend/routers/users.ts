@@ -105,7 +105,7 @@ usersRouter.post('/google', async (req, res, next) => {
     const email = payload['email'];
     const id = payload['sub'];
     const firstName = payload['given_name'];
-    const lastName = payload['family_name'];
+    const lastName = payload['family_name'] ? payload['family_name'] : ' ';
     const phoneNumber = req.body.credential.phone;
     const roleUser = req.body.credential.role as string
     if (!email) {
