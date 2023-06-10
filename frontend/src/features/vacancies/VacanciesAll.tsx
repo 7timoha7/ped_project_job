@@ -90,7 +90,7 @@ const VacanciesAll = () => {
           </Grid>
         </form>
 
-        <form>
+        <form onSubmit={handleSearch}>
           <Grid container spacing={2} alignItems="center" mt={2} justifyContent={"space-between"} sx={{borderTop: '2px solid gray'}}>
             <Grid item xs={8}>
               <FormControl fullWidth>

@@ -57,10 +57,10 @@ summaryRouter.get('/', async (req, res, next) => {
     const experience = req.query.experience;
     const region = req.query.region;
     if (experience) {
-      const summaryRes = await Summary.find({experience: experience});
+      const summaryRes = await Summary.find({ experience: { $gte: experience } });
       return res.send(summaryRes);
     } else if (region) {
-      const summaryRes = await Summary.find({region: region});
+      const summaryRes = await Summary.find({ region: region });
       return res.send(summaryRes);
     } else {
       const summaryRes = await Summary.find();
