@@ -67,7 +67,7 @@ export interface SummaryToServer {
   expirationDate: string;
   desc: string;
   jobTitle: string;
-  experience: string;
+  experience: number;
   region: string;
 }
 
