@@ -213,7 +213,6 @@ const SummaryForm = () => {
                     <TextField
                       inputProps={{
                         min: 1,
-                        max: 10,
                       }}
                       label="Experience"
                       type="number"

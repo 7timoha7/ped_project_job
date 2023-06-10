@@ -7,34 +7,6 @@ import permit from "../middleware/permit";
 
 const summaryRouter = express.Router();
 
-// summaryRouter.post('/', auth, async (req, res, next) => {
-//   try {
-//     const user = (req as RequestWithUser).user;
-//     const currentDate = new Date();
-//     const summary = await Summary.create({
-//       user: user._id,
-//       datetime: currentDate.toString(),
-//       email: req.body.email,
-//       firstName: req.body.firstName,
-//       lastName: req.body.lastName,
-//       phoneNumber: req.body.phoneNumber,
-//       startDate: req.body.startDate,
-//       expirationDate: req.body.expirationDate,
-//       education: req.body.education,
-//       educationalInstitution: req.body.educationalInstitution,
-//       desc: req.body.desc,
-//     });
-//     console.log(req.body);
-//     return res.send(summary);
-//   } catch (e) {
-//     if (e instanceof mongoose.Error.ValidationError) {
-//       return res.status(400).send(e);
-//     } else {
-//       return next(e);
-//     }
-//   }
-// });
-
 summaryRouter.post('/', auth, permit('summary'), async (req, res, next) => {
   const user = (req as RequestWithUser).user;
   const currentDate = new Date();
@@ -82,8 +54,14 @@ summaryRouter.post('/', auth, permit('summary'), async (req, res, next) => {
 
 summaryRouter.get('/', async (req, res, next) => {
   try {
-    const summaryRes = await Summary.find();
-    return res.send(summaryRes);
+    const experience = req.query;
+    if (experience) {
+      const summaryRes = await Summary.find(experience);
+      return res.send(summaryRes);
+    } else {
+      const summaryRes = await Summary.find();
+      return res.send(summaryRes);
+    }
   } catch (e) {
     return next(e);
   }

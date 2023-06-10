@@ -22,8 +22,12 @@ export const createSummary = createAsyncThunk<GlobalSuccess, SummaryToServer, { 
   },
 );
 
-export const getSummary = createAsyncThunk<SummaryOnServer[]>('summary/getSummary', async () => {
+export const getSummary = createAsyncThunk<SummaryOnServer[], number | undefined>('summary/getSummary', async ( number) => {
   try {
+    if (number) {
+      const response = await axiosApi.get<SummaryOnServer[]>('summary?experience=' + number);
+      return response.data;
+    }
     const responseOrders = await axiosApi.get<SummaryOnServer[]>('/summary');
     return responseOrders.data;
   } catch {

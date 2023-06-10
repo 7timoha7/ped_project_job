@@ -11,19 +11,18 @@ import {Button} from "@mui/material";
 const SummaryAll = () => {
   const summaryAll = useAppSelector(selectSummary);
   const dispatch = useAppDispatch();
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState<number>(0);
 
   useEffect(() => {
     dispatch(getSummary());
   }, [dispatch]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(e.target.value);
+    setSearchTerm(parseInt(e.target.value));
   };
 
-  const handleSearch = () => {
-    // Добавьте здесь логику поиска
-    console.log('Search term:', searchTerm);
+  const handleSearch = (number: number) => {
+    dispatch(getSummary(number));
   };
 
   const summarySearch = summaryAll.map((item) => {
@@ -49,7 +48,7 @@ const SummaryAll = () => {
       />
 
       <Box sx={{display: 'flex', alignItems: 'center', mt: 2}}>
-        <Button onClick={handleSearch} sx={{mr: 2}}>Найти</Button>
+        <Button onClick={() => handleSearch(searchTerm)} sx={{mr: 2}}>Найти</Button>
         <TextField
           label="Найти по опыту работы"
           value={searchTerm}
