@@ -87,8 +87,6 @@ export const summarySlice = createSlice({
     builder.addCase(getSummaryOne.rejected, (state) => {
       state.loadingSummary = false;
     });
-
-
   },
 });
 export const summaryReducer = summarySlice.reducer;
