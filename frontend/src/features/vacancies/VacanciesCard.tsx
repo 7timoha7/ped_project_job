@@ -1,6 +1,6 @@
 import React from 'react';
 import {Card, CardContent, IconButton, Typography} from '@mui/material';
-import {ResponseToServer, VacanciesOnServer} from "../../types";
+import {VacanciesOnServer} from "../../types";
 import {useAppDispatch, useAppSelector} from "../../app/hooks";
 import {selectUser} from "../users/usersSlice";
 import DeleteIcon from '@mui/icons-material/Delete';

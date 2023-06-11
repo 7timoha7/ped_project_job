@@ -54,8 +54,12 @@ const Login = () => {
 
   const submitFormHandler = async (event: React.FormEvent) => {
     event.preventDefault();
-    await dispatch(login(state)).unwrap();
-    navigate('/');
+    try {
+      await dispatch(login(state)).unwrap();
+      navigate('/');
+    } catch (error) {
+      console.log('Error:', error);
+    }
   };
 
   const googleLoginHandler = async (credentials: string) => {
@@ -104,8 +108,8 @@ const Login = () => {
           />
         </Box>
         {error && (
-          <Alert severity="error" sx={{mt: 3, width: '100%'}}>
-            {error.error}
+          <Alert severity="error" sx={{ mt: 3, width: '100%' }}>
+            {error.error.toString()}
           </Alert>
         )}
         <Box component="form" onSubmit={submitFormHandler} sx={{mt: 3}}>
