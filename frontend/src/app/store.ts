@@ -4,7 +4,7 @@ import {FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE} from 'redux-persist/e
 import storage from 'redux-persist/lib/storage';
 import {usersReducer} from '../features/users/usersSlice';
 import {summaryReducer} from "../features/summary/summarySlice";
-import {vacanciesReducer} from "../features/vacancies/VacanciesSlice";
+import {vacanciesReducer} from "../features/vacancies/vacanciesSlice";
 import {responseReducer} from "../features/response/ResponseSlice";
 
 const usersPersistConfig = {

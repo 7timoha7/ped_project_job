@@ -2,7 +2,7 @@ import {createSlice} from '@reduxjs/toolkit';
 import type {GlobalSuccess, ValidationError} from '../../types';
 import {VacanciesOnServer} from "../../types";
 import {RootState} from "../../app/store";
-import {createVacancies, getMyVacancies, getVacancies, getVacanciesOne, removeVacancies} from "./VacanciesThunks";
+import {createVacancies, getMyVacancies, getVacancies, getVacanciesOne, removeVacancies} from "./vacanciesThunks";
 
 interface VacanciesState {
   vacancies: VacanciesOnServer[];
@@ -27,11 +27,7 @@ const initialState: VacanciesState = {
 export const vacanciesSlice = createSlice({
   name: 'vacancies',
   initialState,
-  reducers: {
-    setVacanciesSuccessNull: (state) => {
-      state.vacanciesSuccess = null;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(createVacancies.pending, (state) => {
       state.vacanciesError = null;
@@ -95,12 +91,10 @@ export const vacanciesSlice = createSlice({
 });
 export const vacanciesReducer = vacanciesSlice.reducer;
 
-export const {setVacanciesSuccessNull} = vacanciesSlice.actions;
-
 export const selectVacancies = (state: RootState) => state.vacancies.vacancies;
 export const selectMyVacancies = (state: RootState) => state.vacancies.myVacancies;
 export const selectVacanciesOne = (state: RootState) => state.vacancies.vacanciesOne;
-export const selectLoadingCreateVacancies = (state: RootState) => state.vacancies.loadingVacancies;
+export const selectLoadingVacancies = (state: RootState) => state.vacancies.loadingVacancies;
 export const selectLoadingRemoveVacancies = (state: RootState) => state.vacancies.loadingRemove;
 export const selectVacanciesSuccess = (state: RootState) => state.vacancies.vacanciesSuccess;
 

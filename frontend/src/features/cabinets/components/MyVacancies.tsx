@@ -2,8 +2,8 @@ import React, {useEffect} from 'react';
 import {Button} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../../app/hooks";
-import {getMyVacancies} from "../../vacancies/VacanciesThunks";
-import {selectMyVacancies} from "../../vacancies/VacanciesSlice";
+import {getMyVacancies} from "../../vacancies/vacanciesThunks";
+import {selectMyVacancies} from "../../vacancies/vacanciesSlice";
 import VacanciesCard from "../../vacancies/VacanciesCard";
 
 const MyVacancies = () => {

@@ -27,11 +27,7 @@ const initialState: SummaryState = {
 export const summarySlice = createSlice({
   name: 'summary',
   initialState,
-  reducers: {
-    setSummarySuccessNull: (state) => {
-      state.summarySuccess = null;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(createSummary.pending, (state) => {
       state.summaryError = null;
@@ -97,12 +93,10 @@ export const summarySlice = createSlice({
 });
 export const summaryReducer = summarySlice.reducer;
 
-export const {setSummarySuccessNull} = summarySlice.actions;
-
 export const selectSummary = (state: RootState) => state.summary.summary;
 export const selectMySummary = (state: RootState) => state.summary.mySummary;
 export const selectSummaryOne = (state: RootState) => state.summary.summaryOne;
-export const selectLoadingCreateSummary = (state: RootState) => state.summary.loadingSummary;
+export const selectLoadingSummary = (state: RootState) => state.summary.loadingSummary;
 export const selectLoadingRemoveSummary = (state: RootState) => state.summary.loadingRemove;
 export const selectSummarySuccess = (state: RootState) => state.summary.summarySuccess;
 

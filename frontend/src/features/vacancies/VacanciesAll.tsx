@@ -1,12 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {useAppDispatch, useAppSelector} from "../../app/hooks";
-import {getVacancies} from "./VacanciesThunks";
-import {selectVacancies} from "./VacanciesSlice";
+import {getVacancies} from "./vacanciesThunks";
+import {selectLoadingVacancies, selectVacancies} from "./vacanciesSlice";
 import VacanciesCard from "./VacanciesCard";
 import {SearchType} from "../../types";
 import {Button, Card, FormControl, Grid, InputLabel, MenuItem, Select, Typography} from "@mui/material";
 import TextField from "@mui/material/TextField";
 import ContentPasteSearchIcon from "@mui/icons-material/ContentPasteSearch";
+import Spinner from "../../components/UI/Spinner/Spinner";
 
 const VacanciesAll = () => {
   const [searchTerm, setSearchTerm] = useState<SearchType>({
@@ -18,6 +19,7 @@ const VacanciesAll = () => {
   });
   const vacanciesAll = useAppSelector(selectVacancies);
   const dispatch = useAppDispatch();
+  const loading = useAppSelector(selectLoadingVacancies);
 
   useEffect(() => {
     dispatch(getVacancies());
@@ -91,7 +93,8 @@ const VacanciesAll = () => {
         </form>
 
         <form onSubmit={handleSearch}>
-          <Grid container spacing={2} alignItems="center" mt={2} justifyContent={"space-between"} sx={{borderTop: '2px solid gray'}}>
+          <Grid container spacing={2} alignItems="center" mt={2} justifyContent={"space-between"}
+                sx={{borderTop: '2px solid gray'}}>
             <Grid item xs={8}>
               <FormControl fullWidth>
                 <InputLabel>By region</InputLabel>
@@ -116,7 +119,7 @@ const VacanciesAll = () => {
         </form>
       </Card>
 
-      {vacanciesAll.map(item => {
+      {loading ? <Spinner/> : vacanciesAll.map(item => {
         return <VacanciesCard item={item} key={item._id}/>
       })}
     </>

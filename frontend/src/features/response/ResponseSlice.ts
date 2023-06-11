@@ -23,11 +23,7 @@ const initialState: ResponseState = {
 export const responseSlice = createSlice({
   name: 'response',
   initialState,
-  reducers: {
-    setResponseSuccessNull: (state) => {
-      state.responseSuccess = null;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(createResponse.pending, (state) => {
       state.responseError = null;
@@ -69,8 +65,6 @@ export const responseSlice = createSlice({
   },
 });
 export const responseReducer = responseSlice.reducer;
-
-export const {setResponseSuccessNull} = responseSlice.actions;
 
 export const selectMyResponse = (state: RootState) => state.response.myResponse;
 export const selectLoadingCreateResponse = (state: RootState) => state.response.loadingResponse;

@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
 import {VacanciesToServer} from "../../types";
-import {useAppDispatch} from "../../app/hooks";
+import {useAppDispatch, useAppSelector} from "../../app/hooks";
 import {useNavigate} from "react-router-dom";
 import {Button, Container, FormControl, InputLabel, MenuItem, Select, TextField} from "@mui/material";
-import {createVacancies} from "./VacanciesThunks";
+import {createVacancies} from "./vacanciesThunks";
+import {selectLoadingVacancies} from "./vacanciesSlice";
 
 const VacanciesForm = () => {
   const [formState, setFormState] = useState<VacanciesToServer>({
@@ -18,6 +19,7 @@ const VacanciesForm = () => {
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const loading = useAppSelector(selectLoadingVacancies)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {name, value} = e.target;
@@ -142,7 +144,7 @@ const VacanciesForm = () => {
             rows={4}
           />
 
-          <Button type="submit" variant="contained" color="primary">
+          <Button disabled={loading} type="submit" variant="contained" color="primary">
             Submit
           </Button>
         </form>

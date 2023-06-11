@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {SummaryToServer} from "../../types";
-import {useAppDispatch} from "../../app/hooks";
+import {useAppDispatch, useAppSelector} from "../../app/hooks";
 import {useNavigate} from "react-router-dom";
 import dayjs from "dayjs";
 import {createSummary} from "./summaaryThunks";
@@ -19,6 +19,7 @@ import {
 } from "@mui/material";
 import {LocalizationProvider, MobileDatePicker} from "@mui/x-date-pickers";
 import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
+import {selectLoadingSummary} from "./summarySlice";
 
 
 const SummaryForm = () => {
@@ -39,6 +40,7 @@ const SummaryForm = () => {
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const loading = useAppSelector(selectLoadingSummary);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {name, value} = e.target;
@@ -251,7 +253,7 @@ const SummaryForm = () => {
                   margin="normal"
                   rows={4}
                 />
-                <Button type="submit" variant="contained" color="primary">
+                <Button disabled={loading} type="submit" variant="contained" color="primary">
                   Submit
                 </Button>
               </Card>

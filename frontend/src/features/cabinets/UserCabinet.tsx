@@ -67,7 +67,7 @@ const UserCabinet: React.FC<Props> = ({exist = initialState}) => {
       {user?.role === 'vacancies' &&
         <Typography
           onClick={() => navigate('/response')} color={"red"}
-          textAlign={"end"}>Responses {newResponse(response) && newResponse(response) + ' news'}</Typography>}
+          textAlign={"end"}>Responses {newResponse(response) > 0 && newResponse(response) + ' news'}</Typography>}
       <Box mt={3}>
         <Card sx={{minHeight: '600px'}}>
           <CardContent>

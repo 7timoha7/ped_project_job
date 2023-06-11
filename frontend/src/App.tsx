@@ -16,22 +16,41 @@ import ConfirmPage from './components/UI/VerifyPage/ConfirmPage';
 import SummaryForm from "./features/summary/SummaryForm";
 import VacanciesForm from "./features/vacancies/VacanciesForm";
 import UserCabinet from "./features/cabinets/UserCabinet";
-import {selectVacanciesSuccess} from "./features/vacancies/VacanciesSlice";
+import {selectVacanciesSuccess} from "./features/vacancies/vacanciesSlice";
 import Vacancies from "./features/vacancies/Vacancies";
 import Summary from "./features/summary/Summary";
 import VacanciesAll from "./features/vacancies/VacanciesAll";
 import SummaryAll from "./features/summary/SummaryAll";
 import {selectSummarySuccess} from "./features/summary/summarySlice";
 import Response from "./features/response/Response";
+import {selectResponseSuccess} from "./features/response/ResponseSlice";
 
 function App() {
   const user = useAppSelector(selectUser);
   const userSuccess = useAppSelector(selectUserSuccess);
   const vacanciesSuccess = useAppSelector(selectVacanciesSuccess);
   const summarySuccess = useAppSelector(selectSummarySuccess);
+  const responseSuccess = useAppSelector(selectResponseSuccess);
   const dispatch = useAppDispatch();
   const {enqueueSnackbar} = useSnackbar();
   const {i18n} = useTranslation();
+
+  useEffect(() => {
+    if (responseSuccess) {
+      if (i18n.language === 'en') {
+        enqueueSnackbar(responseSuccess.message.en, {
+          variant: 'success',
+          preventDuplicate: true,
+        });
+      } else {
+        enqueueSnackbar(responseSuccess.message.ru, {
+          variant: 'success',
+          preventDuplicate: true,
+        });
+      }
+    }
+    dispatch(setUserSuccessNull());
+  }, [responseSuccess, i18n.language, dispatch, enqueueSnackbar]);
 
   useEffect(() => {
     if (userSuccess) {
@@ -83,6 +102,24 @@ function App() {
     }
     dispatch(setUserSuccessNull());
   }, [summarySuccess, i18n.language, dispatch, enqueueSnackbar]);
+
+  useEffect(() => {
+    if (summarySuccess) {
+      if (i18n.language === 'en') {
+        enqueueSnackbar(summarySuccess.message.en, {
+          variant: 'success',
+          preventDuplicate: true,
+        });
+      } else {
+        enqueueSnackbar(summarySuccess.message.ru, {
+          variant: 'success',
+          preventDuplicate: true,
+        });
+      }
+    }
+    dispatch(setUserSuccessNull());
+  }, [summarySuccess, i18n.language, dispatch, enqueueSnackbar]);
+
 
   return (
     <Routes>

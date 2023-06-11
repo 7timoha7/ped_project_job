@@ -1,20 +1,22 @@
 import React, {useEffect, useState} from 'react';
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
-import {selectSummary} from './summarySlice';
+import {selectLoadingSummary, selectSummary} from './summarySlice';
 import {getSummary} from './summaaryThunks';
 import SummaryCard from './SummaryCard';
 import TextField from '@mui/material/TextField';
 import {Button, Card, FormControl, Grid, InputLabel, MenuItem, Select} from "@mui/material";
 import {SearchType} from "../../types";
 import ContentPasteSearchIcon from '@mui/icons-material/ContentPasteSearch';
+import Spinner from "../../components/UI/Spinner/Spinner";
 
 const SummaryAll = () => {
-  const summaryAll = useAppSelector(selectSummary);
-  const dispatch = useAppDispatch();
   const [searchTerm, setSearchTerm] = useState<SearchType>({
     experience: null,
     region: null,
   });
+  const summaryAll = useAppSelector(selectSummary);
+  const dispatch = useAppDispatch();
+  const loading = useAppSelector(selectLoadingSummary);
 
   useEffect(() => {
     dispatch(getSummary());
@@ -92,12 +94,12 @@ const SummaryAll = () => {
         </form>
       </Card>
 
-
-      <Card sx={{p: 2, mb: 2}}>
-        {summaryAll.map((item) => {
-          return <SummaryCard item={item} key={item._id}/>;
-        })}
-      </Card>
+      {loading ? <Spinner/> :
+        <Card sx={{p: 2, mb: 2}}>
+          {summaryAll.map((item) => {
+            return <SummaryCard item={item} key={item._id}/>;
+          })}
+        </Card>}
     </>
   );
 };
