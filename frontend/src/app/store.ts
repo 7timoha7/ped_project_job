@@ -5,6 +5,7 @@ import storage from 'redux-persist/lib/storage';
 import {usersReducer} from '../features/users/usersSlice';
 import {summaryReducer} from "../features/summary/summarySlice";
 import {vacanciesReducer} from "../features/vacancies/VacanciesSlice";
+import {responseReducer} from "../features/response/ResponseSlice";
 
 const usersPersistConfig = {
   key: 'job:users',
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   users: persistReducer(usersPersistConfig, usersReducer),
   summary: summaryReducer,
   vacancies: vacanciesReducer,
+  response: responseReducer,
 });
 
 

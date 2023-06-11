@@ -91,8 +91,6 @@ export const vacanciesSlice = createSlice({
     builder.addCase(getVacanciesOne.rejected, (state) => {
       state.loadingVacancies = false;
     });
-
-
   },
 });
 export const vacanciesReducer = vacanciesSlice.reducer;

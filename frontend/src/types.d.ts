@@ -101,6 +101,19 @@ export interface SearchType {
   };
 }
 
+export interface ResponseOnServer {
+  _id: string;
+  employer: string;
+  worker: User;
+  vacanciesName: string;
+  newResponse: boolean;
+}
+
+export interface ResponseToServer {
+  employer: string;
+  vacanciesId: string;
+}
+
 
 
 

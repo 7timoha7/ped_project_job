@@ -22,6 +22,7 @@ import Summary from "./features/summary/Summary";
 import VacanciesAll from "./features/vacancies/VacanciesAll";
 import SummaryAll from "./features/summary/SummaryAll";
 import {selectSummarySuccess} from "./features/summary/summarySlice";
+import Response from "./features/response/Response";
 
 function App() {
   const user = useAppSelector(selectUser);
@@ -94,6 +95,14 @@ function App() {
         <Route path="/vacanciesAll" element={<VacanciesAll/>}/>
         <Route path="/summaryAll" element={<SummaryAll/>}/>
 
+        <Route
+          path="/response"
+          element={
+            <VerifyProtectedRoute isVerify={user && user.isVerified}>
+              <Response/>
+            </VerifyProtectedRoute>
+          }
+        />
         <Route
           path="/my-cabinet"
           element={

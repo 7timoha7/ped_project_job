@@ -30,11 +30,11 @@ const SummaryCard: React.FC<Props> = ({item}) => {
             onClick={() => navigate('/summary/' + item._id)}>
         <CardContent sx={{position: 'relative'}}>
           <Typography variant="h6" gutterBottom>
-            {item.jobTitle}
+            Job title: {item.jobTitle}
           </Typography>
 
           <Typography variant="subtitle1" gutterBottom>
-            {item.experience + ' года/лет'}
+            Experience: {item.experience + ' year/years'}
           </Typography>
 
           {user?._id.toString() === item.user.toString() && location.pathname === '/my-cabinet' && (

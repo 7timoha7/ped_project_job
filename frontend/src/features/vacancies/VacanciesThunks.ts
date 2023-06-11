@@ -25,15 +25,6 @@ export const createVacancies = createAsyncThunk<GlobalSuccess, VacanciesToServer
   },
 );
 
-// export const getVacancies = createAsyncThunk<VacanciesOnServer[]>('vacancies/getVacancies', async () => {
-//   try {
-//     const responseOrders = await axiosApi.get<VacanciesOnServer[]>('/vacancies');
-//     return responseOrders.data;
-//   } catch {
-//     throw new Error();
-//   }
-// });
-
 export const getVacancies = createAsyncThunk<VacanciesOnServer[], SearchType | undefined>('vacancies/getVacancies', async (search) => {
   try {
     if (search?.region) {
@@ -44,7 +35,7 @@ export const getVacancies = createAsyncThunk<VacanciesOnServer[], SearchType | u
       const response = await axiosApi.get<VacanciesOnServer[]>('vacancies?salaryFrom=' + salariesFrom + '&salaryTo=' + salariesTo);
       return response.data;
     }
-    const response = await axiosApi.get<VacanciesOnServer[]>('/summary');
+    const response = await axiosApi.get<VacanciesOnServer[]>('/vacancies');
     return response.data;
   } catch {
     throw new Error();
