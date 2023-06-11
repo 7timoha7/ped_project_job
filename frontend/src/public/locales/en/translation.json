@@ -38,5 +38,6 @@
   "restorePasswordDesc": "Enter your email address. A new password will be sent to your email address.",
   "mySummary": "My Summary",
   "jobSearch": "Job search",
-  "forEmployers": "For employers"
+  "forEmployers": "For employers",
+  "myVacancies" : "My Vacancies"
 }

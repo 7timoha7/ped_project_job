@@ -222,6 +222,7 @@ const SummaryForm = () => {
                       fullWidth
                       margin="normal"
                       name="experience"
+                      required
                     />
                   </Grid>
                 </Grid>
