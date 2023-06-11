@@ -83,7 +83,6 @@ const VacanciesAll = () => {
                 />
               </Grid>
             </Card>
-
             <Grid item>
               <Button type={"submit"} color="success" variant="contained">
                 <ContentPasteSearchIcon/>
