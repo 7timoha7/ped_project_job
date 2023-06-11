@@ -59,7 +59,7 @@ const Summary = () => {
             Region: {summary?.region}
           </Typography>
           <Typography variant="body1" gutterBottom>
-            Experience: {summary?.experience}
+            Experience: {summary?.experience + ' year/years'}
           </Typography>
         </Paper>
       </>}
