@@ -103,24 +103,6 @@ function App() {
     dispatch(setUserSuccessNull());
   }, [summarySuccess, i18n.language, dispatch, enqueueSnackbar]);
 
-  useEffect(() => {
-    if (summarySuccess) {
-      if (i18n.language === 'en') {
-        enqueueSnackbar(summarySuccess.message.en, {
-          variant: 'success',
-          preventDuplicate: true,
-        });
-      } else {
-        enqueueSnackbar(summarySuccess.message.ru, {
-          variant: 'success',
-          preventDuplicate: true,
-        });
-      }
-    }
-    dispatch(setUserSuccessNull());
-  }, [summarySuccess, i18n.language, dispatch, enqueueSnackbar]);
-
-
   return (
     <Routes>
       <Route path="/" element={<Home/>}>
