@@ -46,7 +46,9 @@ const UserCabinet: React.FC<Props> = ({exist = initialState}) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(getMyResponse());
+    if (user?.role === 'vacancies') {
+      dispatch(getMyResponse());
+    }
   }, [dispatch]);
 
 
