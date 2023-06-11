@@ -118,6 +118,7 @@ const VacanciesForm = () => {
                 'Invalid value' : ''
             }
           />
+
           <FormControl fullWidth sx={{mt: 2}}>
             <InputLabel>{'region'}</InputLabel>
             <Select
